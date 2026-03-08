@@ -20,12 +20,7 @@
           };
         };
 
-        dotnet-full =
-          with pkgs.dotnetCorePackages;
-          combinePackages [
-            dotnet_8.sdk
-            dotnet_10.sdk
-          ];
+        dotnet-full = (import ./Shared { inherit pkgs; }).passthru.dotnet-full;
       in
       {
         devShells.default = pkgs.mkShell {

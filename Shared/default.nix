@@ -8,6 +8,14 @@ in
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
 }:
+let
+  dotnet-full =
+    with pkgs.dotnetCorePackages;
+    combinePackages [
+      dotnet_8.sdk
+      dotnet_10.sdk
+    ];
+in
 # Build the .NET application for containerization
 pkgs.buildDotnetModule {
   pname = "shared";
@@ -40,5 +48,9 @@ pkgs.buildDotnetModule {
   meta = with pkgs.lib; {
     description = "";
     platforms = platforms.all;
+  };
+
+  passthru = {
+    inherit dotnet-full;
   };
 }
