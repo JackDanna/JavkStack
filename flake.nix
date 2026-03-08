@@ -19,14 +19,12 @@
             allowUnfree = true;
           };
         };
-
-        dotnet-sdk = (import ./Shared { inherit pkgs; }).passthru.dotnet-sdk;
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             vscode-fhs
-            dotnet-sdk
+            (import ./Shared { inherit pkgs; }).passthru.dotnet-sdk
           ];
         };
       }
