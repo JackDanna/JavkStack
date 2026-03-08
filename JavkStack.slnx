@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="Shared/Shared.fsproj" />
   <Project Path="SideEffect/SideEffect.fsproj" />
+  <Project Path="WebClient/WebClient.fsproj" />
 </Solution>

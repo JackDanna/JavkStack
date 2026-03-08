@@ -1,0 +1,23 @@
+{
+    "private": true,
+    "engines": {
+        "node": "~18 || ~20 || ~22",
+        "npm": "~9 || ~10"
+    },
+    "scripts": {},
+    "dependencies": {
+        "daisyui": "^5.5.14",
+        "react": "^19.2.4",
+        "react-dom": "^19.2.4",
+        "recharts": "^3.7.0"
+    },
+    "devDependencies": {
+        "@tailwindcss/vite": "^4.1.18",
+        "@types/node": "^25.1.0",
+        "@vitejs/plugin-react": "^5.1.2",
+        "mocha": "^11.7.5",
+        "sass": "^1.97.3",
+        "tailwindcss": "^4.1.18",
+        "vite": "^7.3.1"
+    }
+}

@@ -9,6 +9,8 @@ in
 }:
 let
   dotnet-sdk = pkgs.dotnetCorePackages.dotnet_10.sdk;
+  nodejs = pkgs.nodejs_22;
+  fable = pkgs.fable;
 in
 # Build the .NET application for containerization
 pkgs.buildDotnetModule {
@@ -25,6 +27,6 @@ pkgs.buildDotnetModule {
   inherit dotnet-sdk;
 
   passthru = {
-    inherit dotnet-sdk;
+    inherit dotnet-sdk nodejs fable;
   };
 }

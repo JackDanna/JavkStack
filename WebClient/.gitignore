@@ -1,0 +1,9 @@
+bin/
+obj/
+result
+node_modules/
+dist/
+output/
+.fable/
+*.fs.js
+*.fs.js.map

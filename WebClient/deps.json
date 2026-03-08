@@ -1,0 +1,127 @@
+[
+  {
+    "pname": "Elmish",
+    "version": "5.0.2",
+    "hash": "sha256-zYUkCVHaFcU2++wKHZEHu+ajelV7l1VeCPDuRHPpLT0="
+  },
+  {
+    "pname": "Fable.AST",
+    "version": "4.2.1",
+    "hash": "sha256-8ivlkonyH7E2UieVCadhxJtpmyxY0vkhlOg4EJKPvx4="
+  },
+  {
+    "pname": "Fable.Browser.Blob",
+    "version": "1.4.0",
+    "hash": "sha256-0oLelzzor71cvBeb1R47Ozkg5hQeqo5RxGrXG8G3bkA="
+  },
+  {
+    "pname": "Fable.Browser.Dom",
+    "version": "2.20.0",
+    "hash": "sha256-l5xb/rM5qeScyLvcYLi6VwLZEoDLUyskqvA7AWrQMkg="
+  },
+  {
+    "pname": "Fable.Browser.Event",
+    "version": "1.7.0",
+    "hash": "sha256-XENjfVqLWRtiUytplFZI8sWKGgpRg3LVsCTqTqsY5Pc="
+  },
+  {
+    "pname": "Fable.Browser.Gamepad",
+    "version": "1.3.0",
+    "hash": "sha256-diYYi5a3zzuKEeQqXVV+i9u8JJQKJKrZyXGpF2YodhU="
+  },
+  {
+    "pname": "Fable.Browser.WebStorage",
+    "version": "1.3.0",
+    "hash": "sha256-wV3rJoBAIH0tA7O251dnLKynblWPDWs/TW+gYhL/NQ4="
+  },
+  {
+    "pname": "Fable.Browser.XMLHttpRequest",
+    "version": "1.4.0",
+    "hash": "sha256-DC7eHqFD/PIDD/pMp/FLTUZRYBwL9OqUeNvprO7EdyU="
+  },
+  {
+    "pname": "Fable.Core",
+    "version": "5.0.0-rc.1",
+    "hash": "sha256-8Dh0gdq+XNZkTItXYcLENbAKKaUHcNE9dCo0CKE0iiA="
+  },
+  {
+    "pname": "Fable.Elmish",
+    "version": "5.0.2",
+    "hash": "sha256-R6r6AhDnYpS2+u5a4pN+S0+Q0JxtvtjsFUfGt9OG4ok="
+  },
+  {
+    "pname": "Fable.Elmish.HMR",
+    "version": "8.0.0",
+    "hash": "sha256-ifM0ZHGZQ9nBSCXkvax9v532Lew0P3JdjlCphJjOZzk="
+  },
+  {
+    "pname": "Fable.Elmish.React",
+    "version": "5.0.1",
+    "hash": "sha256-8wOBdvyWVUvNoOShwQjpwAjY+kOdSDrC4iyzfSnkFek="
+  },
+  {
+    "pname": "Fable.Mocha",
+    "version": "2.17.0",
+    "hash": "sha256-w5ln+fnrSpMYbtxj3tzrdCMiMOuQt2HLMDD5xOdgC+0="
+  },
+  {
+    "pname": "Fable.Parsimmon",
+    "version": "4.0.0",
+    "hash": "sha256-SqPKrSUUavanxXuB8XLp+31Ey+aC6KIZelvSw4CHNKk="
+  },
+  {
+    "pname": "Fable.React.Types",
+    "version": "18.3.0",
+    "hash": "sha256-08kHLsUSHIgu85bAQ8dnCV44YUUlFjYULQo6dfZrfQA="
+  },
+  {
+    "pname": "Fable.ReactDom.Types",
+    "version": "18.2.0",
+    "hash": "sha256-32EA2PxwDuctsTt3bNfLWwM3AoiEN9CeH+SLUaHlAKY="
+  },
+  {
+    "pname": "Fable.Remoting.Client",
+    "version": "7.35.0",
+    "hash": "sha256-G+kWCCRscAWV7nQT8aC6V6A4KR1zLjIcMpWyqS2aq+A="
+  },
+  {
+    "pname": "Fable.Remoting.MsgPack",
+    "version": "1.25.0",
+    "hash": "sha256-VfO/G6IfVDmBuwu+wYecCuoSJpbdOo96N3qAUEvKZTk="
+  },
+  {
+    "pname": "Fable.SimpleJson",
+    "version": "3.24.0",
+    "hash": "sha256-G9Ny3N5md5nMPUibOCbiKDthz2Vs00n6HNxEYrJzrWs="
+  },
+  {
+    "pname": "Feliz",
+    "version": "2.9.0",
+    "hash": "sha256-pkpfzLQiAkTMMidKDLTTu+CthpfXX1OqgIhn8rG/2BI="
+  },
+  {
+    "pname": "Feliz.CompilerPlugins",
+    "version": "2.2.0",
+    "hash": "sha256-x9dNiwpI4HKfV+YYSK2+HrmwIT2gs1hxXM1x2PM7UoA="
+  },
+  {
+    "pname": "Feliz.DaisyUI",
+    "version": "5.2.0",
+    "hash": "sha256-bUtw8XBE5laCbYhfnvChD9E73NqsnxooGm1Tmmuym58="
+  },
+  {
+    "pname": "Feliz.Recharts",
+    "version": "4.3.0",
+    "hash": "sha256-uKGltIQJCgIWkEecsedU06A2DR1CTeMFWk+uuaB5R9k="
+  },
+  {
+    "pname": "Feliz.Router",
+    "version": "4.0.0",
+    "hash": "sha256-nTEs4tCMCDyQOL1BuSf3DOd8vvpKsqb0X1P/OhjUYz8="
+  },
+  {
+    "pname": "Thoth.Json",
+    "version": "10.4.1",
+    "hash": "sha256-+yxHy4ekiazO9ayfi38JBQQlBgVVWfWib65uf1Db9Cs="
+  }
+]

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <DefineConstants>$(DefineConstants);FABLE_COMPILER</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="tailwind.config.js" />
+    <None Include="index.html" />
+    <Compile Include="Index.fs" />
+    <Compile Include="App.fs" />
+    <None Include="vite.config.mts" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Core Fable packages -->
+    <PackageReference Include="Fable.Core" Version="5.0.0-rc.1" />
+    <PackageReference Include="Fable.Elmish" Version="5.0.2" />
+    <PackageReference Include="Fable.Elmish.React" Version="5.0.1" />
+    <PackageReference Include="Fable.Elmish.HMR" Version="8.0.0" />
+    <!-- React & UI -->
+    <PackageReference Include="Feliz" Version="2.9.0" />
+    <PackageReference Include="Feliz.Router" Version="4.0.0" />
+    <PackageReference Include="Feliz.Recharts" Version="4.3.0" />
+    <PackageReference Include="Feliz.DaisyUI" Version="5.2.0" />
+    <!-- Browser APIs -->
+    <PackageReference Include="Fable.Browser.Dom" Version="2.20.0" />
+    <PackageReference Include="Fable.Browser.Blob" Version="1.4.0" />
+    <PackageReference Include="Fable.Browser.Event" Version="1.7.0" />
+    <PackageReference Include="Fable.Browser.WebStorage" Version="1.3.0" />
+    <PackageReference Include="Fable.Browser.XMLHttpRequest" Version="1.4.0" />
+    <!-- Communication -->
+    <PackageReference Include="Fable.Remoting.Client" Version="7.35.0" />
+    <PackageReference Include="Fable.SimpleJson" Version="3.24.0" />
+    <PackageReference Include="Fable.Mocha" Version="2.17.0" ExcludeAssets="All" />
+    <PackageReference Include="Thoth.Json" Version="10.4.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.fsproj" />
+    <PackageReference Include="Shared" Version="*" Condition=" '$(ContinuousIntegrationBuild)'=='true' " />
+  </ItemGroup>
+</Project>
