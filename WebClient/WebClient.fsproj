@@ -30,9 +30,6 @@
     <PackageReference Include="Fable.Browser.XMLHttpRequest" Version="1.4.0" />
     <!-- Communication -->
     <PackageReference Include="Fable.Remoting.Client" Version="7.35.0" />
-    <PackageReference Include="Fable.SimpleJson" Version="3.24.0" />
-    <PackageReference Include="Fable.Mocha" Version="2.17.0" ExcludeAssets="All" />
-    <PackageReference Include="Thoth.Json" Version="10.4.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.fsproj" />

@@ -60,11 +60,6 @@
     "hash": "sha256-8wOBdvyWVUvNoOShwQjpwAjY+kOdSDrC4iyzfSnkFek="
   },
   {
-    "pname": "Fable.Mocha",
-    "version": "2.17.0",
-    "hash": "sha256-w5ln+fnrSpMYbtxj3tzrdCMiMOuQt2HLMDD5xOdgC+0="
-  },
-  {
     "pname": "Fable.Parsimmon",
     "version": "4.0.0",
     "hash": "sha256-SqPKrSUUavanxXuB8XLp+31Ey+aC6KIZelvSw4CHNKk="
@@ -118,10 +113,5 @@
     "pname": "Feliz.Router",
     "version": "4.0.0",
     "hash": "sha256-nTEs4tCMCDyQOL1BuSf3DOd8vvpKsqb0X1P/OhjUYz8="
-  },
-  {
-    "pname": "Thoth.Json",
-    "version": "10.4.1",
-    "hash": "sha256-+yxHy4ekiazO9ayfi38JBQQlBgVVWfWib65uf1Db9Cs="
   }
 ]
