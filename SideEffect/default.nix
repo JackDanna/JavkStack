@@ -1,6 +1,5 @@
 let
-  lockFile = builtins.fromJSON (builtins.readFile ../flake.lock);
-  nixpkgsLock = lockFile.nodes.nixpkgs.locked;
+  nixpkgsLock = (builtins.fromJSON (builtins.readFile ../flake.lock)).nodes.nixpkgs.locked;
 in
 {
   nixpkgs ? builtins.getFlake "github:${nixpkgsLock.owner}/${nixpkgsLock.repo}/${nixpkgsLock.rev}",
