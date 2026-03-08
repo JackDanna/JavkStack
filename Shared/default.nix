@@ -9,12 +9,10 @@ in
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
 }:
 let
-  dotnet-full =
-    with pkgs.dotnetCorePackages;
-    combinePackages [
-      dotnet_8.sdk
-      dotnet_10.sdk
-    ];
+  dotnet-full = {
+    sdk = pkgs.dotnetCorePackages.dotnet_10.sdk;
+    runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
+  };
 in
 # Build the .NET application for containerization
 pkgs.buildDotnetModule {
@@ -28,8 +26,8 @@ pkgs.buildDotnetModule {
 
   packNupkg = true;
 
-  dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
-  dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
+  dotnet-sdk = dotnet-full.sdk;
+  dotnet-runtime = dotnet-full.runtime;
 
   # Build configuration
   buildType = "Release";

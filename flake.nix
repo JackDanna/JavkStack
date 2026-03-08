@@ -26,7 +26,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             vscode-fhs
-            dotnet-full
+            dotnet-full.sdk
           ];
         };
       }
