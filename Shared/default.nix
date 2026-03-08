@@ -4,7 +4,7 @@ let
 in
 {
   nixpkgs ? builtins.getFlake "github:${nixpkgsLock.owner}/${nixpkgsLock.repo}/${nixpkgsLock.rev}",
-  system ? "x86_64-linux",
+  system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
 }:

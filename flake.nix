@@ -24,7 +24,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             vscode-fhs
-            (import ./Shared { inherit pkgs; }).passthru.dotnet-sdk
+            (import ./Shared { inherit pkgs system; }).passthru.dotnet-sdk
           ];
         };
       }
