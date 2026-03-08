@@ -1,0 +1,49 @@
+let
+  lockFile = builtins.fromJSON (builtins.readFile ../flake.lock);
+  nixpkgsLock = lockFile.nodes.nixpkgs.locked;
+in
+{
+  nixpkgs ? builtins.getFlake "github:${nixpkgsLock.owner}/${nixpkgsLock.repo}/${nixpkgsLock.rev}",
+  system ? "x86_64-linux",
+  pkgs ? import nixpkgs { inherit system; },
+  src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
+  shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs; },
+  # Target framework moniker (e.g., "net10.0", "net10.0-android", "net10.0-windows10.0.19041.0")
+  targetFramework ? "net10.0",
+}:
+pkgs.buildDotnetModule {
+  pname = "side-effect";
+  version = "1.0.0";
+
+  inherit src;
+
+  projectFile = "SideEffect.fsproj";
+  nugetDeps = ./deps.json;
+
+  packNupkg = true;
+
+  dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
+  dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
+
+  # Build configuration
+  buildType = "Release";
+
+  dotnetFlags = [
+    "--verbosity"
+    "detailed"
+    "-p:ContinuousIntegrationBuild=true" # Enable CI build mode to use PackageReference instead of ProjectReference
+    "-p:TargetFramework=${targetFramework}"
+    "-p:TargetFrameworks=${targetFramework}" # Override TargetFrameworks to prevent pack from building all TFMs
+  ];
+
+  buildInputs = [
+    shared
+  ];
+
+  # Runtime dependencies
+  runtimeDeps = with pkgs; [
+    openssl
+    zlib
+    icu
+  ];
+}
