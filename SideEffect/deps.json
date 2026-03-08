@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "pname": "Elmish",
+    "version": "5.0.2",
+    "hash": "sha256-zYUkCVHaFcU2++wKHZEHu+ajelV7l1VeCPDuRHPpLT0="
+  },
+  {
+    "pname": "Fable.Core",
+    "version": "5.0.0-rc.1",
+    "hash": "sha256-8Dh0gdq+XNZkTItXYcLENbAKKaUHcNE9dCo0CKE0iiA="
+  }
+]

@@ -14,4 +14,8 @@
     <PackageReference Include="Shared" Version="*" Condition=" '$(ContinuousIntegrationBuild)'=='true' " />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Elmish" Version="5.0.2" />
+  </ItemGroup>
+
 </Project>
