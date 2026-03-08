@@ -35,11 +35,4 @@ pkgs.buildDotnetModule {
   buildInputs = [
     shared
   ];
-
-  # Runtime dependencies
-  runtimeDeps = with pkgs; [
-    openssl
-    zlib
-    icu
-  ];
 }
