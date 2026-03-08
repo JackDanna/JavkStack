@@ -24,9 +24,6 @@ pkgs.buildDotnetModule {
 
   dotnet-sdk = shared.passthru.dotnet-sdk;
 
-  # Build configuration
-  buildType = "Release";
-
   dotnetFlags = [
     "--verbosity"
     "detailed"
