@@ -25,9 +25,6 @@ pkgs.buildDotnetModule {
 
   inherit dotnet-sdk;
 
-  # Build configuration
-  buildType = "Release";
-
   passthru = {
     inherit dotnet-sdk;
   };
