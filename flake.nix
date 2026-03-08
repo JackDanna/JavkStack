@@ -20,13 +20,13 @@
           };
         };
 
-        dotnet-full = (import ./Shared { inherit pkgs; }).passthru.dotnet-full;
+        dotnet-sdk = (import ./Shared { inherit pkgs; }).passthru.dotnet-sdk;
       in
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             vscode-fhs
-            dotnet-full.sdk
+            dotnet-sdk
           ];
         };
       }

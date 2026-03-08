@@ -9,10 +9,8 @@ in
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
 }:
 let
-  dotnet-full = {
-    sdk = pkgs.dotnetCorePackages.dotnet_10.sdk;
-    runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
-  };
+  dotnet-sdk = pkgs.dotnetCorePackages.dotnet_10.sdk;
+  dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
 in
 # Build the .NET application for containerization
 pkgs.buildDotnetModule {
@@ -26,8 +24,7 @@ pkgs.buildDotnetModule {
 
   packNupkg = true;
 
-  dotnet-sdk = dotnet-full.sdk;
-  dotnet-runtime = dotnet-full.runtime;
+  inherit dotnet-sdk dotnet-runtime;
 
   # Build configuration
   buildType = "Release";
@@ -49,6 +46,6 @@ pkgs.buildDotnetModule {
   };
 
   passthru = {
-    inherit dotnet-full;
+    inherit dotnet-sdk dotnet-runtime;
   };
 }
