@@ -22,6 +22,10 @@ pkgs.buildDotnetModule {
 
   dotnet-sdk = shared.passthru.dotnet-sdk;
 
+  dotnetFlags = [
+    "-p:ContinuousIntegrationBuild=true" # Enable CI build mode to use PackageReference instead of ProjectReference
+  ];
+
   buildInputs = [
     shared
   ];
