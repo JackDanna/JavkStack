@@ -23,7 +23,6 @@ pkgs.buildDotnetModule {
   packNupkg = true;
 
   dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
-  dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
 
   # Build configuration
   buildType = "Release";
