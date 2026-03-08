@@ -9,4 +9,9 @@
     <Compile Include="Library.fs" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Fable.Core" Version="5.0.0-rc.1" />
+    <PackageReference Include="Elmish" Version="5.0.2" />
+  </ItemGroup>
+
 </Project>
