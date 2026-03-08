@@ -8,8 +8,6 @@ in
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
   shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs; },
-  # Target framework moniker (e.g., "net10.0", "net10.0-android", "net10.0-windows10.0.19041.0")
-  targetFramework ? "net10.0",
 }:
 pkgs.buildDotnetModule {
   pname = "side-effect";
@@ -28,8 +26,6 @@ pkgs.buildDotnetModule {
     "--verbosity"
     "detailed"
     "-p:ContinuousIntegrationBuild=true" # Enable CI build mode to use PackageReference instead of ProjectReference
-    "-p:TargetFramework=${targetFramework}"
-    "-p:TargetFrameworks=${targetFramework}" # Override TargetFrameworks to prevent pack from building all TFMs
   ];
 
   buildInputs = [
