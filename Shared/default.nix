@@ -32,13 +32,6 @@ pkgs.buildDotnetModule {
     "detailed"
   ];
 
-  # Runtime dependencies
-  runtimeDeps = with pkgs; [
-    openssl
-    zlib
-    icu
-  ];
-
   meta = with pkgs.lib; {
     description = "";
     platforms = platforms.all;
