@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.fsproj" />
+    <PackageReference Include="Shared" Version="*" Condition=" '$(ContinuousIntegrationBuild)'=='true' " />
   </ItemGroup>
 
 </Project>
