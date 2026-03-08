@@ -27,10 +27,6 @@ pkgs.buildDotnetModule {
 
   # Build configuration
   buildType = "Release";
-  dotnetFlags = [
-    "--verbosity"
-    "detailed"
-  ];
 
   meta = with pkgs.lib; {
     description = "";
