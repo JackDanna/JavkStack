@@ -22,7 +22,7 @@ pkgs.buildDotnetModule {
 
   packNupkg = true;
 
-  dotnet-sdk = pkgs.dotnetCorePackages.sdk_10_0;
+  dotnet-sdk = shared.passthru.dotnet-sdk;
 
   # Build configuration
   buildType = "Release";
