@@ -10,7 +10,6 @@ in
 }:
 let
   dotnet-sdk = pkgs.dotnetCorePackages.dotnet_10.sdk;
-  dotnet-runtime = pkgs.dotnetCorePackages.aspnetcore_10_0;
 in
 # Build the .NET application for containerization
 pkgs.buildDotnetModule {
@@ -24,7 +23,7 @@ pkgs.buildDotnetModule {
 
   packNupkg = true;
 
-  inherit dotnet-sdk dotnet-runtime;
+  inherit dotnet-sdk;
 
   # Build configuration
   buildType = "Release";
@@ -46,6 +45,6 @@ pkgs.buildDotnetModule {
   };
 
   passthru = {
-    inherit dotnet-sdk dotnet-runtime;
+    inherit dotnet-sdk;
   };
 }
