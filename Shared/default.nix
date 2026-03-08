@@ -28,11 +28,6 @@ pkgs.buildDotnetModule {
   # Build configuration
   buildType = "Release";
 
-  meta = with pkgs.lib; {
-    description = "";
-    platforms = platforms.all;
-  };
-
   passthru = {
     inherit dotnet-sdk;
   };
