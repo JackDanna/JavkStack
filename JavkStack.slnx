@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Shared/Shared.fsproj" />
+  <Project Path="SideEffect/SideEffect.fsproj" />
+</Solution>
