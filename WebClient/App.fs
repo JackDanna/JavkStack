@@ -19,10 +19,14 @@ open Fable.SimpleJson
 
 open System
 
+open Api.Shared
+
+let api: Api = 
+    Remoting.createApi () |> Remoting.withRouteBuilder Api.Shared.routingBuilder |> Remoting.buildProxy<Api>
 
 Program.mkProgram
-    (fun () -> Index.Shared.init (Router.currentUrl ()))
-    Index.Shared.update
+    (fun () -> Index.Shared.init api.sayBanana (Router.currentUrl ()))
+    (Index.Shared.update api)
     Index.WebClient.view
 #if DEBUG
 |> Program.withConsoleTrace

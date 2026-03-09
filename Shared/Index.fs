@@ -2,18 +2,17 @@
 
 open Elmish
 
-type Index = {
-    title: string
-}
+type Index = { title: string }
 
-type Msg =
+type Msg = 
     | NoOp
+    | StoredTokenLoaded of string
 
-let init url =
-    {
-        title = "Hello World"
-    }, Cmd.none
+let init getData url =
+    { title = "Hello World" }, Cmd.OfAsync.perform getData () StoredTokenLoaded
 
-let update msg model =
+let update api msg model =
     match msg with
     | NoOp -> model, Cmd.none
+    | StoredTokenLoaded token ->
+        { model with title = token }, Cmd.none

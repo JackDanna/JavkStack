@@ -9,4 +9,4 @@ open Feliz.DaisyUI
 open Feliz.Router
 
 let view (model: Index) dispatch =
-    Html.text "Hello World"
+    Html.text model.title
