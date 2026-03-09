@@ -88,7 +88,6 @@ pkgs.buildDotnetModule {
     runHook postInstall
   '';
 
-  # Copy wwwroot and other static assets, and copy DLLs from reportingNugetPackages
   postInstall = ''
     echo "Client build complete. Output in $out/dist"
   '';
