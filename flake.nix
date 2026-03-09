@@ -24,6 +24,7 @@
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
             vscode-fhs
+            fantomas
             (import ./Shared { inherit pkgs system; }).passthru.dotnet-sdk
             (import ./Shared { inherit pkgs system; }).passthru.nodejs
             (import ./Shared { inherit pkgs system; }).passthru.fable
