@@ -9,12 +9,8 @@
     <Compile Include="Server.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Remoting.Giraffe" Version="5.24.0" />
-    <PackageReference Include="Saturn" Version="0.17.0" />
-    <!-- Force newer versions to resolve vulnerability (GHSA-59j7-ghrg-fj52) and version conflicts -->
-    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="6.34.0" />
-    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.34.0" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.34.0" />
+    <PackageReference Include="Falco" Version="5.2.0" />
+    <PackageReference Include="Fable.Remoting.AspNetCore" Version="2.43.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.fsproj" />

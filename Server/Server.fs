@@ -1,17 +1,14 @@
 module Server
 
-open Saturn
-open Giraffe
 open Fable.Remoting.Server
-open Fable.Remoting.Giraffe
+open Fable.Remoting.AspNetCore
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.DataProtection
 open Microsoft.AspNetCore.Builder
+open Microsoft.AspNetCore.StaticFiles
+open Microsoft.Extensions.FileProviders
 open System
 open System.IO
-open System.Net.Http
-open System.Threading
-open System.Threading.Tasks
 
 open Api.SideEffect
 
@@ -71,26 +68,25 @@ let configureStaticFileOptions (services: IServiceCollection) =
 
     services
 
-/// Combined router with Fable.Remoting API
-let webApp =
-    let mainHandler =
-        Remoting.createApi ()
-        |> Remoting.withRouteBuilder Api.Shared.routingBuilder
-        |> Remoting.fromContext apiImplementation
-        |> Remoting.buildHttpHandler
-
-    choose [ mainHandler ]
-
-let app = application {
-    use_router webApp
-    memory_cache
-    use_static "public"
-    use_gzip
-    service_config configureDataProtection
-    service_config configureStaticFileOptions
-}
-
 [<EntryPoint>]
-let main _ =
-    run app
+let main args =
+    let builder = WebApplication.CreateBuilder args
+    configureDataProtection builder.Services |> ignore
+    configureStaticFileOptions builder.Services |> ignore
+    builder.Services.AddMemoryCache() |> ignore
+    builder.Services.AddResponseCompression() |> ignore
+
+    let app = builder.Build()
+    app.UseResponseCompression() |> ignore
+
+    Remoting.createApi ()
+    |> Remoting.withRouteBuilder Api.Shared.routingBuilder
+    |> Remoting.fromContext apiImplementation
+    |> app.UseRemoting
+
+    StaticFileOptions(FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")))
+    |> app.UseStaticFiles
+    |> ignore
+
+    app.Run()
     0
