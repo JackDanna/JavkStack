@@ -60,14 +60,24 @@
     "hash": "sha256-gl9HqCnquMyBq1j+DxdKwvhQFexbzl3pFpmb/CM4FX8="
   },
   {
+    "pname": "Microsoft.IdentityModel.Abstractions",
+    "version": "6.34.0",
+    "hash": "sha256-Al1vWcfH//XZRKSg5JE2nEHMb8Z6kekMHccJEmYo9jU="
+  },
+  {
     "pname": "Microsoft.IdentityModel.JsonWebTokens",
-    "version": "6.10.0",
-    "hash": "sha256-LQvxWJIawyHA0i0IRaZ6CW9D4x4A3xR2f2quLFlnHHM="
+    "version": "6.34.0",
+    "hash": "sha256-+h0uNBMx6zh/f96+WiSR6c89G1alBOCuTx+VpDxuATA="
   },
   {
     "pname": "Microsoft.IdentityModel.Logging",
     "version": "6.10.0",
     "hash": "sha256-zm8JQfPK5g+jOXK8mJ9ryInJtNlMPwMlNT8j+pkg5zk="
+  },
+  {
+    "pname": "Microsoft.IdentityModel.Logging",
+    "version": "6.34.0",
+    "hash": "sha256-a0IPOjmYsIT2/HFAdhaN/32X3c8GYCFZ5sRiCGO2pDo="
   },
   {
     "pname": "Microsoft.IdentityModel.Protocols",
@@ -81,8 +91,8 @@
   },
   {
     "pname": "Microsoft.IdentityModel.Tokens",
-    "version": "6.10.0",
-    "hash": "sha256-Hs4D6DuYCgxpsGt3kPWSQn8fvzL068np6fz9Lq0uj+I="
+    "version": "6.34.0",
+    "hash": "sha256-lO/gLOFYkwCEm98Zn+4X20dXMwYoD+y4Urpx8n3mcu4="
   },
   {
     "pname": "Microsoft.IO.RecyclableMemoryStream",
@@ -121,8 +131,8 @@
   },
   {
     "pname": "System.IdentityModel.Tokens.Jwt",
-    "version": "6.10.0",
-    "hash": "sha256-NLJnOpVUQTDAfrk3jLcwwQS9TU+VFFUGa0b2lURmYwI="
+    "version": "6.34.0",
+    "hash": "sha256-nv+tAb/Gw2W026gBgoAT53Oj5LOonHYGG1UntQheHpQ="
   },
   {
     "pname": "Utf8Json",
