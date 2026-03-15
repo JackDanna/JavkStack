@@ -19,10 +19,17 @@
             allowUnfree = true;
           };
         };
+        commands = import ./commands.nix { inherit pkgs; };
       in
       {
         devShells.default = pkgs.mkShell {
+          shellHook = ''
+            ${commands.set.welcome}
+            ${commands.set.commandInstructions} 
+            . ${commands.set.changeShellPrompt}
+          '';
           buildInputs = with pkgs; [
+            commands
             vscode-fhs
             fantomas
             pulumi-bin
