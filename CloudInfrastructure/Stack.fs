@@ -42,7 +42,16 @@ let resources () =
             CustomResourceOptions(Provider = provider)
         )
 
+    let connectionStrings =
+        ListDatabaseAccountConnectionStrings.Invoke(
+            ListDatabaseAccountConnectionStringsInvokeArgs(
+                ResourceGroupName = io resourceGroup.Name,
+                AccountName = io cosmosAccount.Name
+            )
+        )
+
     dict [
         "resourceGroupName", resourceGroup.Name :> obj
         "cosmosAccountName", cosmosAccount.Name :> obj
+        "cosmosConnectionString", connectionStrings.Apply(fun c -> c.ConnectionStrings.[0].ConnectionString) :> obj
     ]
