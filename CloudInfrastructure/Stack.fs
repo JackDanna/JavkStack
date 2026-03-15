@@ -1,9 +1,17 @@
 module CloudInfrastructure.Stack
 
 open Pulumi.FSharp
-open Pulumi.AzureNative
+open Pulumi.AzureNative.Resources
 
 let resources () =
-    // Define Azure resources here
+    let resourceGroup =
+        ResourceGroup(
+            "javkstack-rg",
+            ResourceGroupArgs(Location = input "eastus")
+        )
 
-    dict []
+    dict [ 
+        "resourceGroupName", 
+        resourceGroup.Name 
+        :> obj 
+    ]
