@@ -3,3 +3,4 @@ obj/
 result
 public/
 .pulumi/
+.env.prod
