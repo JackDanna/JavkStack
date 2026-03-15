@@ -3,6 +3,9 @@ module CloudInfrastructure.Stack
 open Pulumi
 open Pulumi.FSharp
 open Pulumi.AzureNative.Resources
+open Pulumi.AzureNative.DocumentDB
+
+let eastus = "eastus"
 
 let resources () =
     // The config is Pulumi's way of reading values from the stack's config file, Pulumi.prod.yaml
@@ -17,12 +20,29 @@ let resources () =
     let resourceGroup =
         ResourceGroup(
             "javkstack-rg",
-            ResourceGroupArgs(Location = input "eastus"),
+            ResourceGroupArgs(
+                Location = input eastus
+            ),
             CustomResourceOptions(Provider = provider)
         )
 
-    dict [ 
-        "resourceGroupName", 
-        resourceGroup.Name 
-        :> obj 
+    let cosmosAccount =
+        DatabaseAccount(
+            "javkstack-cosmos",
+            DatabaseAccountArgs(
+                ResourceGroupName = io resourceGroup.Name,
+                Location = input eastus,
+                DatabaseAccountOfferType = input DatabaseAccountOfferType.Standard,
+                EnableFreeTier = input true,
+                Locations = inputList [
+                    input (Pulumi.AzureNative.DocumentDB.Inputs.LocationArgs(LocationName = input eastus))
+                ],
+                Kind = inputUnion2Of2 DatabaseAccountKind.GlobalDocumentDB
+            ),
+            CustomResourceOptions(Provider = provider)
+        )
+
+    dict [
+        "resourceGroupName", resourceGroup.Name :> obj
+        "cosmosAccountName", cosmosAccount.Name :> obj
     ]
