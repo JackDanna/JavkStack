@@ -26,7 +26,7 @@
           shellHook = ''
             ${commands.set.welcome}
             ${commands.set.commandInstructions} 
-            ${commands.set.changeShellPrompt}
+            . ${commands.set.changeShellPrompt}
           '';
           buildInputs = with pkgs; [
             commands
