@@ -5,6 +5,7 @@ open Pulumi.FSharp
 open Pulumi.AzureNative.Resources
 
 let resources () =
+    // The config is Pulumi's way of reading values from the stack's config file, Pulumi.prod.yaml
     let config = Config "azure-native"
 
     let provider =
