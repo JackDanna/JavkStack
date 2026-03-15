@@ -59,8 +59,8 @@ let resources () =
             WorkspaceArgs(
                 ResourceGroupName = io resourceGroup.Name,
                 Location = input eastus,
-                Sku = input (Pulumi.AzureNative.OperationalInsights.Inputs.WorkspaceSkuArgs(Name = inputUnion2Of2 WorkspaceSkuNameEnum.PerGB2018)),
-                RetentionInDays = input 30
+                Sku = input (Pulumi.AzureNative.OperationalInsights.Inputs.WorkspaceSkuArgs(Name = inputUnion2Of2 WorkspaceSkuNameEnum.Free)),
+                RetentionInDays = input 7
             ),
             CustomResourceOptions(Provider = provider)
         )
