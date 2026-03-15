@@ -51,7 +51,7 @@ let resources () =
         )
 
     dict [
-        "resourceGroupName", resourceGroup.Name :> obj
-        "cosmosAccountName", cosmosAccount.Name :> obj
-        "cosmosConnectionString", connectionStrings.Apply(fun c -> c.ConnectionStrings.[0].ConnectionString) :> obj
+        "RESOURCE_GROUP_NAME", resourceGroup.Name :> obj
+        "COSMOS_ACCOUNT_NAME", cosmosAccount.Name :> obj
+        "COSMOS_CONNECTION_STRING", connectionStrings.Apply(fun c -> c.ConnectionStrings.[0].ConnectionString) :> obj
     ]
