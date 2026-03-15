@@ -26,6 +26,7 @@
             vscode-fhs
             fantomas
             pulumi-bin
+            azure-cli
             (import ./Shared { inherit pkgs system; }).passthru.dotnet-sdk
             (import ./Shared { inherit pkgs system; }).passthru.nodejs
             (import ./Shared { inherit pkgs system; }).passthru.fable
