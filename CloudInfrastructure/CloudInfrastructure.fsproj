@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net10.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Stack.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Pulumi" Version="3.102.1-alpha.8efffa8" />
+    <PackageReference Include="Pulumi.AzureNative" Version="3.16.0-alpha.1773440317" />
+    <PackageReference Include="Pulumi.FSharp" Version="3.102.1-alpha.8efffa8" />
+  </ItemGroup>
+</Project>

@@ -30,6 +30,21 @@ let
       changeShellPrompt = ''
         export PS1+="${prefix}> "
       '';
+
+      exportEnv = ''
+        REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
+        cd "$REPO/CloudInfrastructure"
+        if [ -z "$PULUMI_CONFIG_PASSPHRASE" ]; then
+          read -rsp "Pulumi passphrase: " PULUMI_CONFIG_PASSPHRASE
+          export PULUMI_CONFIG_PASSPHRASE
+          echo ""
+        fi
+        echo "Exporting Pulumi stack outputs to .env.prod..."
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --json --show-secrets \
+          | ${pkgs.lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key | ascii_upcase)=\(.value)"' \
+          > "$REPO/CloudInfrastructure/.env.prod"
+        echo "Written to CloudInfrastructure/.env.prod"
+      '';
     }
   );
 in
