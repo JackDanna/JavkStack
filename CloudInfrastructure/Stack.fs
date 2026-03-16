@@ -3,7 +3,7 @@ module CloudInfrastructure.Stack
 open Pulumi
 open Pulumi.FSharp
 open Pulumi.AzureNative.Resources
-open Pulumi.AzureNative.DocumentDB
+open Pulumi.AzureNative.CosmosDB
 open Pulumi.AzureNative.OperationalInsights
 open Pulumi.AzureNative.App
 
@@ -37,7 +37,7 @@ let resources () =
                 DatabaseAccountOfferType = input DatabaseAccountOfferType.Standard,
                 EnableFreeTier = input true,
                 Locations = inputList [
-                    input (Pulumi.AzureNative.DocumentDB.Inputs.LocationArgs(LocationName = input eastus))
+                    input (Pulumi.AzureNative.CosmosDB.Inputs.LocationArgs(LocationName = input eastus))
                 ],
                 Kind = inputUnion2Of2 DatabaseAccountKind.GlobalDocumentDB
             ),
