@@ -4,7 +4,6 @@ open Pulumi
 open Pulumi.FSharp
 open Pulumi.AzureNative.Resources
 open Pulumi.AzureNative.CosmosDB
-open Pulumi.AzureNative.OperationalInsights
 open Pulumi.AzureNative.App
 
 let eastus = "eastus"
@@ -52,45 +51,13 @@ let resources () =
             )
         )
 
-    // Log Analytics Workspace required by Container App Environment
-    let logAnalytics =
-        Workspace(
-            "javkstack-logs",
-            WorkspaceArgs(
-                ResourceGroupName = io resourceGroup.Name,
-                Location = input eastus,
-                Sku = input (Pulumi.AzureNative.OperationalInsights.Inputs.WorkspaceSkuArgs(Name = inputUnion2Of2 WorkspaceSkuNameEnum.Free)),
-                RetentionInDays = input 7
-            ),
-            CustomResourceOptions(Provider = provider)
-        )
-
-    let logAnalyticsKeys =
-        GetSharedKeys.Invoke(
-            GetSharedKeysInvokeArgs(
-                ResourceGroupName = io resourceGroup.Name,
-                WorkspaceName = io logAnalytics.Name
-            )
-        )
-
     // Consumption plan - includes free monthly allowance
     let containerEnv =
         ManagedEnvironment(
             "javkstack-env",
             ManagedEnvironmentArgs(
                 ResourceGroupName = io resourceGroup.Name,
-                Location = input eastus,
-                AppLogsConfiguration = input (
-                    Pulumi.AzureNative.App.Inputs.AppLogsConfigurationArgs(
-                        Destination = input "log-analytics",
-                        LogAnalyticsConfiguration = input (
-                            Pulumi.AzureNative.App.Inputs.LogAnalyticsConfigurationArgs(
-                                CustomerId = io logAnalytics.CustomerId,
-                                SharedKey = io (logAnalyticsKeys.Apply(fun k -> k.PrimarySharedKey))
-                            )
-                        )
-                    )
-                )
+                Location = input eastus
             ),
             CustomResourceOptions(Provider = provider)
         )
