@@ -40,8 +40,7 @@ let
           echo ""
         fi
         echo "Exporting Pulumi stack outputs to .env.prod..."
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --json --show-secrets \
-          | ${pkgs.lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key | ascii_upcase)=\(.value)"' \
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --shell --show-secrets \
           > "$REPO/CloudInfrastructure/.env.prod"
         echo "Written to CloudInfrastructure/.env.prod"
       '';
