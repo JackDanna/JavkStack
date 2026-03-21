@@ -143,10 +143,12 @@ let infra () =
                                                     )
                                                 ],
                                             Image =
-                                                io (
-                                                    registry.LoginServer.Apply(fun server ->
-                                                        $"{server}/{appImageName}:{appImageTag}")
-                                                ),
+                                                // This is just a default for now to see if the container is working
+                                                input "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest",
+                                                //     io (
+                                                //         registry.LoginServer.Apply(fun server ->
+                                                //             $"{server}/{appImageName}:{appImageTag}")
+                                                //     ),
                                             Resources =
                                                 input (
                                                     Pulumi.AzureNative.App.Inputs.ContainerResourcesArgs(
