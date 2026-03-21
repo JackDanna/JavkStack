@@ -31,6 +31,18 @@ let
         export PS1+="${prefix}> "
       '';
 
+      fetch-all-nuget-deps-jsons = ''
+        nix build -f Shared/default.nix fetch-deps
+        ./result Shared/deps.json
+        nix build -f SideEffect/default.nix fetch-deps
+        ./result SideEffect/deps.json
+        nix build -f WebClient/default.nix fetch-deps
+        ./result WebClient/deps.json
+        nix build -f Server/default.nix server.fetch-deps
+        ./result Server/deps.json
+        rm result
+      ''
+
       exportEnv = ''
         REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
         cd "$REPO/CloudInfrastructure"
