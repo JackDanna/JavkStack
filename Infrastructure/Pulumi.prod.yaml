@@ -1,3 +1,4 @@
 encryptionsalt: v1:SX/NDCqy7wc=:v1:OzDjT3VlkysUUvIe:jSifukNyZ93hERTqRTNH4I5Bxkybyw==
 config:
   azure-native:location: eastus
+  azure-native:subscriptionId: f75ca300-046d-4627-9829-ad2f6401278a
