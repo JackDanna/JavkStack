@@ -5,5 +5,3 @@ type Environment = {
 }
 
 let e = Unchecked.defaultof<Environment>
-
-let string_COSMOS_CONNECTION_STRING = nameof e.COSMOS_CONNECTION_STRING
