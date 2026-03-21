@@ -83,7 +83,7 @@ let infra () =
     let acrPasswordSecretName = "acr-password"
     let containerApp =
         ContainerApp(
-            "containerApp",
+            "container-app",
             ContainerAppArgs(
                 ResourceGroupName = io resourceGroup.Name,
                 Location = input location,
