@@ -1,0 +1,20 @@
+{
+    "version": 3,
+    "checkpoint": {
+        "stack": "organization/Infrastructure/prod",
+        "latest": {
+            "manifest": {
+                "time": "2026-03-21T10:06:08.962576731-04:00",
+                "magic": "ebad6f0f3764e5d1508da7ca29dcc46fe4299975bc64cf19c7e18b2b6efee2c4",
+                "version": "v3.224.0"
+            },
+            "secrets_providers": {
+                "type": "passphrase",
+                "state": {
+                    "salt": "v1:SX/NDCqy7wc=:v1:OzDjT3VlkysUUvIe:jSifukNyZ93hERTqRTNH4I5Bxkybyw=="
+                }
+            },
+            "metadata": {}
+        }
+    }
+}
