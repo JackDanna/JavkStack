@@ -41,7 +41,7 @@ let
         nix build -f Server/default.nix server.fetch-deps
         ./result Server/deps.json
         rm result
-      ''
+      '';
 
       exportEnv = ''
         REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
