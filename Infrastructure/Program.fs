@@ -26,7 +26,7 @@ let infra () =
     // Create an Azure Cosmos DB account
     let cosmosAccount =
         DatabaseAccount(
-            "cosmosAccount",
+            "cosmos-account",
             DatabaseAccountArgs(
                 ResourceGroupName = resourceGroup.Name,
                 Location = input location,
