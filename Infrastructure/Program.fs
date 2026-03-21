@@ -7,6 +7,8 @@ open Pulumi.AzureNative.CosmosDB
 open Pulumi.AzureNative.App
 open Pulumi.AzureNative.ContainerRegistry
 
+open Environment.Shared
+
 // Reminder: for non-interactive deploys (CI/CD), prefer a service principal.
 // Pulumi Azure Native reads these environment variables:
 // ARM_CLIENT_ID, ARM_CLIENT_SECRET, ARM_TENANT_ID, ARM_SUBSCRIPTION_ID
@@ -135,7 +137,7 @@ let infra () =
                                                 inputList [
                                                     input (
                                                         Pulumi.AzureNative.App.Inputs.EnvironmentVarArgs(
-                                                            Name = input (nameof Environment.Shared.e.COSMOS_CONNECTION_STRING),
+                                                            Name = input (nameof e.COSMOS_CONNECTION_STRING),
                                                             SecretRef = input cosmosConnectionStringSecretName
                                                         )
                                                     )
@@ -174,6 +176,7 @@ let infra () =
         "acrLoginServer", registry.LoginServer :> obj
         "containerImageTag", appImageTag :> obj
         "containerAppUrl", containerApp.LatestRevisionFqdn :> obj
+        nameof e.COSMOS_CONNECTION_STRING, cosmosConnectionString :> obj
     ]
 
 [<EntryPoint>]
