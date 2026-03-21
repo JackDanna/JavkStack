@@ -135,7 +135,7 @@ let infra () =
                                                 inputList [
                                                     input (
                                                         Pulumi.AzureNative.App.Inputs.EnvironmentVarArgs(
-                                                            Name = input "COSMOS_CONNECTION_STRING",
+                                                            Name = input Environment.Shared.string_COSMOS_CONNECTION_STRING,
                                                             SecretRef = input cosmosConnectionStringSecretName
                                                         )
                                                     )

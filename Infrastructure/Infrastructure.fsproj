@@ -16,4 +16,9 @@
     <PackageReference Include="Pulumi.AzureNative" Version="3.*" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\Shared.fsproj" />
+    <PackageReference Include="Shared" Version="*" Condition=" '$(ContinuousIntegrationBuild)'=='true' " />
+  </ItemGroup>
+
 </Project>
