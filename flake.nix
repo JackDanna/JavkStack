@@ -13,6 +13,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
+        version = builtins.trim (builtins.readFile ./version);
         pkgs = import nixpkgs {
           inherit system;
           config = {
@@ -34,9 +35,9 @@
             fantomas
             pulumi-bin
             azure-cli
-            (import ./Shared { inherit pkgs system; }).passthru.dotnet-sdk
-            (import ./Shared { inherit pkgs system; }).passthru.nodejs
-            (import ./Shared { inherit pkgs system; }).passthru.fable
+            (import ./Shared { inherit pkgs system version; }).passthru.dotnet-sdk
+            (import ./Shared { inherit pkgs system version; }).passthru.nodejs
+            (import ./Shared { inherit pkgs system version; }).passthru.fable
           ];
         };
       }

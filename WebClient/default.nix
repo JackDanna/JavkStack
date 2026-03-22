@@ -6,7 +6,8 @@ in
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
-  shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs; },
+  version ? builtins.trim (builtins.readFile ../version),
+  shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs version; },
   sharedSrc ? pkgs.nix-gitignore.gitignoreSource [ ] ../Shared,
 }:
 let
@@ -18,7 +19,7 @@ let
 in
 pkgs.buildDotnetModule {
   pname = "web-client";
-  version = "1.0.0";
+  inherit version;
 
   inherit src;
 

@@ -6,6 +6,7 @@ in
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
+  version ? builtins.trim (builtins.readFile ../version),
 }:
 let
   dotnet-sdk = pkgs.dotnetCorePackages.dotnet_10.sdk;
@@ -15,7 +16,7 @@ in
 # Build the .NET application for containerization
 pkgs.buildDotnetModule {
   pname = "shared";
-  version = "1.0.0";
+  inherit version;
 
   inherit src;
 

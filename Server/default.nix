@@ -6,12 +6,14 @@ in
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
-  shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs; },
+  version ? builtins.trim (builtins.readFile ../version),
+  shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs version; },
   sideEffect ? import ../SideEffect/default.nix {
     inherit
       nixpkgs
       system
       pkgs
+      version
       shared
       ;
   },
@@ -20,6 +22,7 @@ in
       nixpkgs
       system
       pkgs
+      version
       shared
       ;
   },
@@ -27,7 +30,7 @@ in
 let
   server = pkgs.buildDotnetModule {
     pname = "server";
-    version = "1.0.0";
+    inherit version;
 
     inherit src;
 
