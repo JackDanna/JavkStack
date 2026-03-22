@@ -60,20 +60,23 @@ let
         ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --yes --skip-preview
 
         ACR_SERVER=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output acrLoginServer)
-        APP_IMAGE_NAME=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output containerImageTag)
+        APP_IMAGE_NAME=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output appImageName)
 
         echo "==> Building container with Nix (version: $VERSION)..."
         cd "$REPO"
         nix build -f Server/default.nix container
 
-        echo "==> Logging in to ACR $ACR_SERVER..."
-        ${pkgs.lib.getExe pkgs.azure-cli} acr login --name "$ACR_SERVER"
+        echo "==> Fetching ACR token..."
+        ACR_TOKEN=$(${pkgs.lib.getExe pkgs.azure-cli} acr login --name "$ACR_SERVER" --expose-token --output tsv --query accessToken)
 
-        echo "==> Loading and pushing image as $ACR_SERVER/$APP_IMAGE_NAME:$VERSION..."
-        ${pkgs.lib.getExe pkgs.docker} load < result
-        ${pkgs.lib.getExe pkgs.docker} tag "$APP_IMAGE_NAME:latest" "$ACR_SERVER/$APP_IMAGE_NAME:$VERSION"
-        ${pkgs.lib.getExe pkgs.docker} push "$ACR_SERVER/$APP_IMAGE_NAME:$VERSION"
-        rm -f result
+        echo "==> Pushing image as $ACR_SERVER/$APP_IMAGE_NAME:$VERSION (via crane)..."
+        ${pkgs.lib.getExe pkgs.crane} auth login "$ACR_SERVER" \
+          -u "00000000-0000-0000-0000-000000000000" \
+          -p "$ACR_TOKEN"
+        TMPTAR=$(mktemp /tmp/container-XXXXXX.tar)
+        ${pkgs.lib.getExe pkgs.gzip} -dc "$(readlink -f result)" > "$TMPTAR"
+        ${pkgs.lib.getExe pkgs.crane} push "$TMPTAR" "$ACR_SERVER/$APP_IMAGE_NAME:$VERSION"
+        rm -f "$TMPTAR" result
 
         echo "==> Phase 2: switching Container App to real image (tag: $VERSION)..."
         cd "$REPO/Infrastructure"

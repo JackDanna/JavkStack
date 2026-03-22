@@ -180,6 +180,7 @@ let infra () =
         "cosmosAccountName", cosmosAccount.Name :> obj
         "cosmosConnectionString", cosmosConnectionString :> obj
         "acrLoginServer", registry.LoginServer :> obj
+        "appImageName", appImageName :> obj
         "containerImageTag", appImageTag :> obj
         "containerAppUrl", containerApp.LatestRevisionFqdn :> obj
         nameof e.COSMOS_CONNECTION_STRING, cosmosConnectionString :> obj
