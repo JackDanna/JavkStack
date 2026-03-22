@@ -13,7 +13,7 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        version = builtins.replaceStrings [ "\n" ] [ "" ] (builtins.readFile ./version);
+        version = pkgs.lib.trim (builtins.readFile ./version);
         pkgs = import nixpkgs {
           inherit system;
           config = {
