@@ -43,6 +43,47 @@ let
         rm result
       '';
 
+      deploy = ''
+        set -e
+        REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
+        VERSION=$(cat "$REPO/version")
+
+        if [ -z "$PULUMI_CONFIG_PASSPHRASE" ]; then
+          read -rsp "Pulumi passphrase: " PULUMI_CONFIG_PASSPHRASE
+          export PULUMI_CONFIG_PASSPHRASE
+          echo ""
+        fi
+
+        cd "$REPO/Infrastructure"
+
+        echo "==> Phase 1: provisioning infrastructure..."
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --yes --skip-preview
+
+        ACR_SERVER=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output acrLoginServer)
+        APP_IMAGE_NAME=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output containerImageTag)
+
+        echo "==> Building container with Nix (version: $VERSION)..."
+        cd "$REPO"
+        nix build -f Server/default.nix container
+
+        echo "==> Logging in to ACR $ACR_SERVER..."
+        ${pkgs.lib.getExe pkgs.azure-cli} acr login --name "$ACR_SERVER"
+
+        echo "==> Loading and pushing image as $ACR_SERVER/$APP_IMAGE_NAME:$VERSION..."
+        ${pkgs.lib.getExe pkgs.docker} load < result
+        ${pkgs.lib.getExe pkgs.docker} tag "$APP_IMAGE_NAME:latest" "$ACR_SERVER/$APP_IMAGE_NAME:$VERSION"
+        ${pkgs.lib.getExe pkgs.docker} push "$ACR_SERVER/$APP_IMAGE_NAME:$VERSION"
+        rm -f result
+
+        echo "==> Phase 2: switching Container App to real image (tag: $VERSION)..."
+        cd "$REPO/Infrastructure"
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} config set appImageTag "$VERSION"
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --yes --skip-preview
+
+        echo "==> Deploy complete!"
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output containerAppUrl
+      '';
+
       exportEnv = ''
         REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
         cd "$REPO/CloudInfrastructure"

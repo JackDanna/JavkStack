@@ -143,12 +143,16 @@ let infra () =
                                                     )
                                                 ],
                                             Image =
-                                                // This is just a default for now to see if the container is working
-                                                input "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest",
-                                                //     io (
-                                                //         registry.LoginServer.Apply(fun server ->
-                                                //             $"{server}/{appImageName}:{appImageTag}")
-                                                //     ),
+                                                // Bootstrapping: appImageTag = "latest" means ACR is empty, use placeholder.
+                                                // Once a real image has been pushed, the deploy command sets appImageTag
+                                                // to the version string and re-runs pulumi up to switch to the real image.
+                                                (if appImageTag = "latest" then
+                                                    input "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
+                                                else
+                                                    io (
+                                                        registry.LoginServer.Apply(fun server ->
+                                                            $"{server}/{appImageName}:{appImageTag}")
+                                                    )),
                                             Resources =
                                                 input (
                                                     Pulumi.AzureNative.App.Inputs.ContainerResourcesArgs(
