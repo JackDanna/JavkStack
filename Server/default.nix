@@ -6,7 +6,7 @@ in
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
-  version ? pkgs.lib.trim (builtins.readFile ../version),
+  version ? builtins.readFile ../version,
   shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs version; },
   sideEffect ? import ../SideEffect/default.nix {
     inherit
