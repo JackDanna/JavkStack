@@ -6,7 +6,7 @@ in
   system ? builtins.currentSystem,
   pkgs ? import nixpkgs { inherit system; },
   src ? pkgs.nix-gitignore.gitignoreSource [ ] ./.,
-  version ? builtins.trim (builtins.readFile ../version),
+  version ? builtins.replaceStrings [ "\n" ] [ "" ] (builtins.readFile ../version),
   shared ? import ../Shared/default.nix { inherit nixpkgs system pkgs version; },
   sharedSrc ? pkgs.nix-gitignore.gitignoreSource [ ] ../Shared,
 }:
