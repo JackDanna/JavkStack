@@ -120,7 +120,12 @@ let infra () =
                                 input (
                                     Pulumi.AzureNative.App.Inputs.IngressArgs(
                                         External = input true,
-                                        TargetPort = input 80
+                                        TargetPort = 
+                                            (if appImageTag = "latest" then
+                                                    input 80
+                                                else
+                                                    input 8080
+                                            )
                                     )
                                 )
                         )

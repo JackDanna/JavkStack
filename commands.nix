@@ -57,10 +57,10 @@ let
         cd "$REPO/Infrastructure"
 
         echo "==> Phase 1: provisioning infrastructure..."
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --yes --skip-preview
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --stack prod --yes --skip-preview
 
-        ACR_SERVER=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output acrLoginServer)
-        APP_IMAGE_NAME=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output appImageName)
+        ACR_SERVER=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --stack prod acrLoginServer)
+        APP_IMAGE_NAME=$(${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --stack prod appImageName)
 
         echo "==> Building container with Nix (version: $VERSION)..."
         cd "$REPO"
@@ -80,11 +80,11 @@ let
 
         echo "==> Phase 2: switching Container App to real image (tag: $VERSION)..."
         cd "$REPO/Infrastructure"
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} config set appImageTag "$VERSION"
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --yes --skip-preview
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} config set --stack prod azure-native:appImageTag "$VERSION"
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} up --stack prod --yes --skip-preview
 
         echo "==> Deploy complete!"
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output containerAppUrl
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --stack prod containerAppUrl
       '';
 
       exportEnv = ''
