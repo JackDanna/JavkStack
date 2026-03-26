@@ -13,7 +13,6 @@ let
   nodejs = pkgs.nodejs_22;
   fable = pkgs.fable;
 in
-# Build the .NET application for containerization
 pkgs.buildDotnetModule {
   pname = "shared";
 
