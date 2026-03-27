@@ -81,6 +81,11 @@ let main args =
 
     Remoting.createApi ()
     |> Remoting.withRouteBuilder Api.Shared.routingBuilder
+    |> Remoting.fromContext unauthenticatedApiImplementation
+    |> app.UseRemoting
+
+    Remoting.createApi ()
+    |> Remoting.withRouteBuilder Api.Shared.routingBuilder
     |> Remoting.fromContext apiImplementation
     |> app.UseRemoting
 
