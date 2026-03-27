@@ -90,7 +90,7 @@ let update
 
         | LoginPageMsg loginMsg, LoginPage loginModel ->
             let updatedModel, cmd =
-                LoginPage.Shared.update unauthenticatedApi.login loginMsg loginModel
+                LoginPage.Shared.update unauthenticatedApi.login unauthenticatedApi.register loginMsg loginModel
 
             {
                 model with

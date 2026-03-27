@@ -39,23 +39,17 @@ type SystemTextJsonCosmosSerializer(opts: JsonSerializerOptions) =
 // ---------------------------------------------------------------------------
 
 let cosmosClientResult =
-    try
-        let opts = CosmosClientOptions()
-        opts.ConnectionMode <- ConnectionMode.Gateway
-        opts.LimitToEndpoint <- true
-        opts.Serializer <- SystemTextJsonCosmosSerializer jsonOptions
+    let connStr = Environment.SideEffect.environment.COSMOS_CONNECTION_STRING
 
-        opts.HttpClientFactory <-
-            fun () ->
-                let handler = new System.Net.Http.HttpClientHandler()
-                handler.ServerCertificateCustomValidationCallback <- fun _ _ _ _ -> true
-                handler.ClientCertificateOptions <- System.Net.Http.ClientCertificateOption.Manual
-                new System.Net.Http.HttpClient(handler)
-
-        new CosmosClient(Environment.SideEffect.environment.COSMOS_CONNECTION_STRING, opts)
-        |> Ok
-    with ex ->
-        Error $"Failed to create Cosmos client: {ex.Message}"
+    if String.IsNullOrWhiteSpace connStr then
+        Error "COSMOS_CONNECTION_STRING environment variable is not set"
+    else
+        try
+            let opts = CosmosClientOptions()
+            opts.Serializer <- SystemTextJsonCosmosSerializer jsonOptions
+            new CosmosClient(connStr.Trim(), opts) |> Ok
+        with ex ->
+            Error $"Failed to create Cosmos client: {ex.Message}"
 
 let databaseResult =
     async {

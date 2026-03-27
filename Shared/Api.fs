@@ -6,6 +6,7 @@ let routingBuilder = sprintf "/api/%s/%s"
 
 type UnauthenticatedApi = {
     login: Login -> Async<Result<AuthResponse, string>>
+    register: Register -> Async<Result<unit, string>>
 }
 
 type Api = {

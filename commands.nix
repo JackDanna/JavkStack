@@ -96,7 +96,8 @@ let
           echo ""
         fi
         echo "Exporting Pulumi stack outputs to .env.prod..."
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --shell --show-secrets \
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --json --show-secrets \
+          | ${pkgs.lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
           > "$REPO/Infrastructure/.env.prod"
       '';
 
