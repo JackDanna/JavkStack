@@ -11,7 +11,6 @@
             "cwd": "${workspaceFolder}/Server",
             "console": "integratedTerminal",
             "stopAtEntry": false,
-            // "envFile": "${workspaceFolder}/.env.prod",
             "envFile": "${workspaceFolder}/Infrastructure/.env.prod",
             "env": {
                 "ASPNETCORE_ENVIRONMENT": "Development",
