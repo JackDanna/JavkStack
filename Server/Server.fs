@@ -90,15 +90,11 @@ let main args =
     |> app.UseRemoting
 
     let publicPath = Path.Combine(Directory.GetCurrentDirectory(), "public")
-    let fileProvider = new PhysicalFileProvider(publicPath)
 
-    DefaultFilesOptions(FileProvider = fileProvider)
-    |> app.UseDefaultFiles
-    |> ignore
-
-    StaticFileOptions(FileProvider = fileProvider)
-    |> app.UseStaticFiles
-    |> ignore
+    if Directory.Exists(publicPath) then
+        let fileProvider = new PhysicalFileProvider(publicPath)
+        app.UseDefaultFiles(DefaultFilesOptions(FileProvider = fileProvider)) |> ignore
+        app.UseStaticFiles(StaticFileOptions(FileProvider = fileProvider)) |> ignore
 
     app.Run()
     0
