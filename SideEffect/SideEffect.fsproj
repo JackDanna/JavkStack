@@ -2,9 +2,11 @@
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <AzureCosmosDisableNewtonsoftJsonCheck>true</AzureCosmosDisableNewtonsoftJsonCheck>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Environment.fs" />
+    <Compile Include="CosmosDB.fs" />
     <Compile Include="Api.fs" />
     <Compile Include="Library.fs" />
   </ItemGroup>
@@ -14,5 +16,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Elmish" Version="5.0.2" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.46.1" />
+    <PackageReference Include="FSharp.SystemTextJson" Version="1.3.13" />
   </ItemGroup>
 </Project>
