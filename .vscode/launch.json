@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug PROD Server",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build-server",
+            "program": "${workspaceFolder}/Server/bin/Debug/net10.0/Server.dll",
+            "args": [],
+            "cwd": "${workspaceFolder}/Server",
+            "console": "integratedTerminal",
+            "stopAtEntry": false,
+            // "envFile": "${workspaceFolder}/.env.prod",
+            "env": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_URLS": "http://localhost:5000"
+            }
+        }
+    ]
+}
