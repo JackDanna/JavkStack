@@ -35,6 +35,7 @@
             fantomas
             pulumi-bin
             azure-cli
+            crane
             (import ./Shared { inherit pkgs system version; }).passthru.dotnet-sdk
             (import ./Shared { inherit pkgs system version; }).passthru.nodejs
             (import ./Shared { inherit pkgs system version; }).passthru.fable

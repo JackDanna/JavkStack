@@ -120,7 +120,12 @@ let infra () =
                                 input (
                                     Pulumi.AzureNative.App.Inputs.IngressArgs(
                                         External = input true,
-                                        TargetPort = input 80
+                                        TargetPort = 
+                                            (if appImageTag = "latest" then
+                                                    input 80
+                                                else
+                                                    input 8080
+                                            )
                                     )
                                 )
                         )
@@ -143,12 +148,16 @@ let infra () =
                                                     )
                                                 ],
                                             Image =
-                                                // This is just a default for now to see if the container is working
-                                                input "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest",
-                                                //     io (
-                                                //         registry.LoginServer.Apply(fun server ->
-                                                //             $"{server}/{appImageName}:{appImageTag}")
-                                                //     ),
+                                                // Bootstrapping: appImageTag = "latest" means ACR is empty, use placeholder.
+                                                // Once a real image has been pushed, the deploy command sets appImageTag
+                                                // to the version string and re-runs pulumi up to switch to the real image.
+                                                (if appImageTag = "latest" then
+                                                    input "mcr.microsoft.com/azuredocs/containerapps-helloworld:latest"
+                                                else
+                                                    io (
+                                                        registry.LoginServer.Apply(fun server ->
+                                                            $"{server}/{appImageName}:{appImageTag}")
+                                                    )),
                                             Resources =
                                                 input (
                                                     Pulumi.AzureNative.App.Inputs.ContainerResourcesArgs(
@@ -176,6 +185,7 @@ let infra () =
         "cosmosAccountName", cosmosAccount.Name :> obj
         "cosmosConnectionString", cosmosConnectionString :> obj
         "acrLoginServer", registry.LoginServer :> obj
+        "appImageName", appImageName :> obj
         "containerImageTag", appImageTag :> obj
         "containerAppUrl", containerApp.LatestRevisionFqdn :> obj
         nameof e.COSMOS_CONNECTION_STRING, cosmosConnectionString :> obj

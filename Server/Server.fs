@@ -84,7 +84,14 @@ let main args =
     |> Remoting.fromContext apiImplementation
     |> app.UseRemoting
 
-    StaticFileOptions(FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "public")))
+    let publicPath = Path.Combine(Directory.GetCurrentDirectory(), "public")
+    let fileProvider = new PhysicalFileProvider(publicPath)
+
+    DefaultFilesOptions(FileProvider = fileProvider)
+    |> app.UseDefaultFiles
+    |> ignore
+
+    StaticFileOptions(FileProvider = fileProvider)
     |> app.UseStaticFiles
     |> ignore
 

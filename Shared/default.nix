@@ -13,19 +13,15 @@ let
   nodejs = pkgs.nodejs_22;
   fable = pkgs.fable;
 in
-# Build the .NET application for containerization
 pkgs.buildDotnetModule {
   pname = "shared";
-  inherit version;
 
-  inherit src;
+  inherit version src dotnet-sdk;
 
   projectFile = "Shared.fsproj";
   nugetDeps = ./deps.json;
 
   packNupkg = true;
-
-  inherit dotnet-sdk;
 
   passthru = {
     inherit dotnet-sdk nodejs fable;
