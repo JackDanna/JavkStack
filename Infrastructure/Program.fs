@@ -182,6 +182,11 @@ let infra () =
 
     // Export the cosmos account name
     dict [
+        "cosmosAccountName", cosmosAccount.Name :> obj
+        "acrLoginServer", registry.LoginServer :> obj
+        "appImageName", appImageName :> obj
+        "containerImageTag", appImageTag :> obj
+        "containerAppUrl", containerApp.LatestRevisionFqdn :> obj
         nameof e.COSMOS_CONNECTION_STRING, cosmosConnectionString :> obj
     ]
 

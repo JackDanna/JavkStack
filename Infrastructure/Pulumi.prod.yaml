@@ -4,4 +4,4 @@ config:
   azure-native:subscriptionId: f75ca300-046d-4627-9829-ad2f6401278a
   azure-native:acrName: javkstackacrname
   azure-native:appImageName: javk-stack-app
-  azure-native:appImageTag: latest
+  azure-native:appImageTag: 1.0.0
