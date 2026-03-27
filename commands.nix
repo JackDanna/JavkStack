@@ -105,6 +105,11 @@ let
         cd $(${self.repoDir})/WebClient/
         ${pkgs.lib.getExe pkgs.fable} watch -o output -s --run npx vite --mode prod
       '';
+
+      restoreClientDependencies = ''
+        cd $(${self.repoDir})/WebClient/
+        npm install
+      '';
     }
   );
 in
