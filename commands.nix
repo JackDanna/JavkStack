@@ -89,7 +89,7 @@ let
 
       exportEnv = ''
         REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
-        cd "$REPO/CloudInfrastructure"
+        cd "$REPO/Infrastructure"
         if [ -z "$PULUMI_CONFIG_PASSPHRASE" ]; then
           read -rsp "Pulumi passphrase: " PULUMI_CONFIG_PASSPHRASE
           export PULUMI_CONFIG_PASSPHRASE
@@ -97,8 +97,7 @@ let
         fi
         echo "Exporting Pulumi stack outputs to .env.prod..."
         ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --shell --show-secrets \
-          > "$REPO/CloudInfrastructure/.env.prod"
-        echo "Written to CloudInfrastructure/.env.prod"
+          > "$REPO/Infrastructure/.env.prod"
       '';
 
       runFrontendDebugProd = ''
