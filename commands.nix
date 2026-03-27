@@ -100,6 +100,11 @@ let
           > "$REPO/CloudInfrastructure/.env.prod"
         echo "Written to CloudInfrastructure/.env.prod"
       '';
+
+      runFrontendDebugProd = ''
+        cd $(${self.repoDir})/WebClient/
+        ${pkgs.lib.getExe pkgs.fable} watch -o output -s --run npx vite --mode prod
+      '';
     }
   );
 in
