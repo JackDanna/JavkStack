@@ -25,14 +25,15 @@
         
         androidComposition = pkgs.androidenv.composeAndroidPackages {
           cmdLineToolsVersion = "19.0";
-          platformVersions = [ "36" ];
-          buildToolsVersions = [ "36.1.0" ];
+          platformVersions = [ "35" "36" ];
+          buildToolsVersions = [ "35.0.0" "36.0.0" "36.1.0" ];
           includeEmulator = true;
           includeSystemImages = true;
           systemImageTypes = [ "google_apis_playstore" ];
           abiVersions = [ "x86_64" ];
           includeNDK = true;
           ndkVersions = [ "27.1.12297006" ];
+          cmakeVersions = [ "3.22.1" ];
         };
       in
       {
