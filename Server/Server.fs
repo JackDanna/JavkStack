@@ -96,7 +96,6 @@ let createApiHandler apiImplementation =
     |> Remoting.fromContext apiImplementation
     |> Remoting.buildHttpHandler
 
-
 let webApp =
     choose [
         createApiHandler unauthenticatedApiImplementation
