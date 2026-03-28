@@ -37,8 +37,8 @@ let generateAccessToken (user: User) =
 let hashPassword (password: string) =
     let saltBytes = Array.zeroCreate 16
     use rng = Security.Cryptography.RandomNumberGenerator.Create()
-    rng.GetBytes(saltBytes)
-    let salt = Convert.ToBase64String(saltBytes)
+    rng.GetBytes saltBytes
+    let salt = Convert.ToBase64String saltBytes
 
     let hash =
         Security.Cryptography.Rfc2898DeriveBytes.Pbkdf2(
