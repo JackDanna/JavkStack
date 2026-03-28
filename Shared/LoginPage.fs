@@ -2,8 +2,6 @@ module LoginPage.Shared
 
 open Elmish
 
-type JWT = string
-
 type AuthResponse = {
     Token: string
     RefreshToken: string
@@ -11,7 +9,7 @@ type AuthResponse = {
 }
 
 type AuthenticatedSession = {
-    Token: JWT
+    Token: string
     RefreshToken: string
     UserId: string
 }
