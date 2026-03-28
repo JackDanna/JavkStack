@@ -78,10 +78,13 @@ let update
     match model.UnauthenticatedOrAuthenticated with
     | Unauthenticated unauthenticatedPage ->
         match msg, unauthenticatedPage with
-        | StoredTokenLoaded(Ok session), _ ->
-            { model with UnauthenticatedOrAuthenticated = Authenticated session }, Cmd.none
-
-        | StoredTokenLoaded(Error _), _ -> model, Cmd.none
+        | StoredTokenLoaded tokenResult, _ ->
+            match tokenResult with
+            | Ok session ->
+                { model with UnauthenticatedOrAuthenticated = Authenticated session }
+            | Error _ ->
+                model
+            , Cmd.none
 
         | LoginPageMsg(LoginResponse(Ok session)), _ ->
             { model with UnauthenticatedOrAuthenticated = Authenticated session },
