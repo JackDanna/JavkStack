@@ -31,6 +31,8 @@
           includeSystemImages = true;
           systemImageTypes = [ "google_apis_playstore" ];
           abiVersions = [ "x86_64" ];
+          includeNDK = true;
+          ndkVersions = [ "27.1.12297006" ];
         };
       in
       {
