@@ -4,13 +4,13 @@
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Counter.fs" />
     <Compile Include="App.fs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.Core" Version="4.5.0" />
-    <PackageReference Include="Fable.Elmish" Version="4.4.0" />
-    <PackageReference Include="Fable.Elmish.React" Version="4.0.0" />
     <PackageReference Include="Fable.React" Version="9.4.0" />
     <PackageReference Include="Fable.React.Native" Version="4.0.0" />
+    <PackageReference Include="Fable.ReactNative.Navigation" Version="0.0.5-alpha" />
   </ItemGroup>
 </Project>

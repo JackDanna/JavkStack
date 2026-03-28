@@ -1,58 +1,44 @@
 module App
 
-open Elmish
-open Elmish.React
-open Elmish.ReactNative
-open Fable.ReactNative
-
-// A very simple app which increments a number when you press a button
-
-type Model = {
-    Counter : int
-}
-
-type Message =
-    | Increment
-
-let init () = { Counter = 0 }, Cmd.none
-
-let update msg model =
-    match msg with
-    | Increment ->
-        { model with Counter = model.Counter + 1 }, Cmd.none
+open Fable.ReactNative.Navigation
 
 module R = Fable.ReactNative.Helpers
 module P = Fable.ReactNative.Props
 open Fable.ReactNative.Props
 
-let view model dispatch =
+let private stack = Stack.CreateStackNavigator()
+
+let homePage (nav: Types.INavigation<_>) =
     R.view [
         P.ViewProperties.Style [
-            P.FlexStyle.Flex 1.0
+            P.FlexStyle.Flex 1.
             P.FlexStyle.JustifyContent JustifyContent.Center
-            P.BackgroundColor "#131313" ]
-    ] [
-        R.text [
-            P.TextProperties.Style [ P.Color "#ffffff" ]
-        ] "Press me"
-        |> R.touchableHighlightWithChild [
-            P.TouchableHighlightProperties.Style [
-                P.FlexStyle.Padding (R.dip 10.)
-            ]
-            P.TouchableHighlightProperties.UnderlayColor "#f6f6f6"
-            OnPress (fun _ -> dispatch Increment)
+            P.FlexStyle.AlignItems ItemAlignment.Center
         ]
+    ] [
+        R.text [] "This is the home screen"
 
-        R.text [
-            P.TextProperties.Style [
-                P.Color "#ffffff"
-                P.FontSize 30.
-                P.TextAlign P.TextAlignment.Center
-            ]
-        ] (string model.Counter)
+        R.touchableOpacity [
+            OnPress(fun _ -> nav.navigation.push "counter")
+        ] [
+            R.text [
+                P.TextProperties.Style [
+                    P.FlexStyle.MarginTop (R.pct 5.)
+                ]
+            ] "Open counter screen"
+        ]
     ]
 
-Program.mkProgram init update view
-|> Program.withConsoleTrace
-|> Program.withReactNative "ReactNative"
-|> Program.run
+let render () =
+    navigationContainer [] [
+        stack.Navigator.navigator [
+            Stack.NavigatorProps.InitialRouteName "home"
+        ] [
+            stack.Screen.screen "home" homePage [] []
+            stack.Screen.screen "counter" Counter.counter [
+                Stack.ScreenProps.InitialParams ({ Initial = None }: Counter.CounterProps)
+            ] []
+        ]
+    ]
+
+Helpers.registerApp "ReactNative" (render ())
