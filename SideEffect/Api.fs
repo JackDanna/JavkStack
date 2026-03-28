@@ -4,10 +4,6 @@ open Api.Shared
 open LoginPage.SideEffect
 open RegisterPage.SideEffect
 
-// ---------------------------------------------------------------------------
-// API implementations
-// ---------------------------------------------------------------------------
-
 let unauthenticatedApiImplementation ctx : UnauthenticatedApi = {
     login = login
     register = register
