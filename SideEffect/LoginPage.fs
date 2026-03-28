@@ -76,7 +76,7 @@ let login (login: Login) =
                     Ok {
                         Token = generateAccessToken user
                         RefreshToken = Guid.NewGuid().ToString()
-                        Id = user.id
+                        UserId = user.id
                     }
             else
                 return Error "Invalid username or password"

@@ -3,12 +3,6 @@ module LoginPage.Shared
 open Elmish
 open Deferred.Shared
 
-type AuthResponse = {
-    Token: string
-    RefreshToken: string
-    Id: string
-}
-
 type AuthenticatedSession = {
     Token: string
     RefreshToken: string
@@ -46,15 +40,7 @@ let update authenticate msg model =
 
     | LoginToServer ->
         { model with LoginAttempt = InProgress },
-        Cmd.OfAsync.perform authenticate model.Login (fun result ->
-            LoginResponse(
-                result
-                |> Result.map (fun (authResponse: AuthResponse) -> {
-                    Token = authResponse.Token
-                    RefreshToken = authResponse.RefreshToken
-                    UserId = authResponse.Id
-                })
-            ))
+        Cmd.OfAsync.perform authenticate model.Login LoginResponse
 
     | LoginResponse loginResult ->
         { model with LoginAttempt = Resolved loginResult }, Cmd.none
