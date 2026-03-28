@@ -5,7 +5,7 @@ open LoginPage.Shared
 open Feliz
 open Feliz.DaisyUI
 
-let private renderLoginOutcome (loginAttempt: LoginAttempt) =
+let renderLoginOutcome (loginAttempt: LoginAttempt) =
     match loginAttempt with
     | Resolved(Error msg) ->
         Html.paragraph [
@@ -20,7 +20,7 @@ let private renderLoginOutcome (loginAttempt: LoginAttempt) =
         ]
     | _ -> Html.none
 
-let private renderRegisterOutcome (registerAttempt: RegisterAttempt) =
+let renderRegisterOutcome (registerAttempt: RegisterAttempt) =
     match registerAttempt with
     | RegisterResolved(Error msg) ->
         Html.paragraph [
@@ -35,7 +35,7 @@ let private renderRegisterOutcome (registerAttempt: RegisterAttempt) =
         ]
     | _ -> Html.none
 
-let private loginForm (model: LoginPage) dispatch =
+let loginForm (model: LoginPage) dispatch =
     Daisy.cardBody [
         prop.className "items-center text-center space-y-5"
         prop.children [
@@ -90,7 +90,7 @@ let private loginForm (model: LoginPage) dispatch =
         ]
     ]
 
-let private registerForm (model: LoginPage) dispatch =
+let registerForm (model: LoginPage) dispatch =
     Daisy.cardBody [
         prop.className "items-center text-center space-y-5"
         prop.children [

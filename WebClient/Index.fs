@@ -6,7 +6,7 @@ open Feliz
 open Feliz.DaisyUI
 open Feliz.Router
 
-let private navLink (label: string) (targetUrl: Url) (currentUrl: Url) =
+let navLink (label: string) (targetUrl: Url) (currentUrl: Url) =
     Html.li [
         Html.a [
             if currentUrl = targetUrl then

@@ -34,7 +34,7 @@ let generateAccessToken (user: User) =
 // Password hashing (PBKDF2 / SHA-256)
 // ---------------------------------------------------------------------------
 
-let private hashPassword (password: string) =
+let hashPassword (password: string) =
     let saltBytes = Array.zeroCreate 16
     use rng = Security.Cryptography.RandomNumberGenerator.Create()
     rng.GetBytes(saltBytes)
@@ -52,7 +52,7 @@ let private hashPassword (password: string) =
 
     $"{salt}:{hash}"
 
-let private verifyPassword (password: string) (storedHash: string) =
+let verifyPassword (password: string) (storedHash: string) =
     let parts = storedHash.Split(':')
 
     if parts.Length <> 2 then
