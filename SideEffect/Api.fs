@@ -38,19 +38,16 @@ let hashPassword (password: string) =
     let saltBytes = Array.zeroCreate 16
     use rng = Security.Cryptography.RandomNumberGenerator.Create()
     rng.GetBytes saltBytes
-    let salt = Convert.ToBase64String saltBytes
 
-    let hash =
-        Security.Cryptography.Rfc2898DeriveBytes.Pbkdf2(
-            password,
-            saltBytes,
-            100_000,
-            Security.Cryptography.HashAlgorithmName.SHA256,
-            32
-        )
-        |> Convert.ToBase64String
-
-    $"{salt}:{hash}"
+    Security.Cryptography.Rfc2898DeriveBytes.Pbkdf2(
+        password,
+        saltBytes,
+        100_000,
+        Security.Cryptography.HashAlgorithmName.SHA256,
+        32
+    )
+    |> Convert.ToBase64String
+    |> sprintf "%s:%s" (Convert.ToBase64String saltBytes)
 
 let verifyPassword (password: string) (storedHash: string) =
     let parts = storedHash.Split(':')
