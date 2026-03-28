@@ -13,5 +13,5 @@ let unauthenticatedApiImplementation ctx : UnauthenticatedApi = {
     register = register
 }
 
-let apiImplementation ctx : Api =
+let apiImplementation ctx : AuthenticatedApi =
     { sayBanana = fun () -> async.Return "Banana!" }

@@ -10,6 +10,6 @@ type UnauthenticatedApi = {
     register: Register -> Async<Result<unit, string>>
 }
 
-type Api = {
+type AuthenticatedApi = {
     sayBanana: unit -> Async<string>
 }
