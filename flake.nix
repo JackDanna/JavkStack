@@ -26,7 +26,7 @@
         androidComposition = pkgs.androidenv.composeAndroidPackages {
           cmdLineToolsVersion = "19.0";
           platformVersions = [ "36" ];
-          buildToolsVersions = [ "35.0.0" ];
+          buildToolsVersions = [ "36.1.0" ];
           includeEmulator = true;
           includeSystemImages = true;
           systemImageTypes = [ "google_apis_playstore" ];
