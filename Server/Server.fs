@@ -90,18 +90,18 @@ let configureStaticFileOptions (services: IServiceCollection) =
 
     services
 
+let createApiHandler apiImplementation =
+    Remoting.createApi ()
+    |> Remoting.withRouteBuilder Api.Shared.routingBuilder
+    |> Remoting.fromContext apiImplementation
+    |> Remoting.buildHttpHandler
+
+
 let webApp =
     choose [
-        Remoting.createApi ()
-        |> Remoting.withRouteBuilder Api.Shared.routingBuilder
-        |> Remoting.fromContext unauthenticatedApiImplementation
-        |> Remoting.buildHttpHandler
-
+        createApiHandler unauthenticatedApiImplementation
         requiresAuthentication (RequestErrors.UNAUTHORIZED "Bearer" "JavkStack" "Login required")
-        >=> (Remoting.createApi ()
-             |> Remoting.withRouteBuilder Api.Shared.routingBuilder
-             |> Remoting.fromContext apiImplementation
-             |> Remoting.buildHttpHandler)
+        >=> createApiHandler apiImplementation
     ]
 
 let app = application {
