@@ -66,8 +66,8 @@
   },
   {
     "pname": "Microsoft.AspNetCore.Authentication.JwtBearer",
-    "version": "6.0.3",
-    "hash": "sha256-gl9HqCnquMyBq1j+DxdKwvhQFexbzl3pFpmb/CM4FX8="
+    "version": "10.0.5",
+    "hash": "sha256-yer8UHYeeH7/kZ83+9DAOLpXFRN4flqEmEFz41xV4HE="
   },
   {
     "pname": "Microsoft.Azure.Cosmos",
@@ -85,29 +85,39 @@
     "hash": "sha256-IFvXCMV2joahytylQ2BGSpZd2tdX0Rss++ZcClVT+r0="
   },
   {
+    "pname": "Microsoft.IdentityModel.Abstractions",
+    "version": "8.17.0",
+    "hash": "sha256-AU+EMOZArc3rTdsnKYzAufFAtspuYQM3XYi8/VsQAio="
+  },
+  {
     "pname": "Microsoft.IdentityModel.JsonWebTokens",
-    "version": "6.10.0",
-    "hash": "sha256-LQvxWJIawyHA0i0IRaZ6CW9D4x4A3xR2f2quLFlnHHM="
+    "version": "8.17.0",
+    "hash": "sha256-MH7vdhCNAae32p6UTvaDtmyvFDxa/W71qTsEQ6yC9xM="
   },
   {
     "pname": "Microsoft.IdentityModel.Logging",
-    "version": "6.10.0",
-    "hash": "sha256-zm8JQfPK5g+jOXK8mJ9ryInJtNlMPwMlNT8j+pkg5zk="
+    "version": "8.17.0",
+    "hash": "sha256-IM6jsPMz+l9JA0cye/v2ke51xlfP0u5HtWBqc2aKDYM="
   },
   {
     "pname": "Microsoft.IdentityModel.Protocols",
-    "version": "6.10.0",
-    "hash": "sha256-+I8n45xO2TAbIjDs7oKfouAa2NN2oVY6czuXO28flZ0="
+    "version": "8.0.1",
+    "hash": "sha256-v3DIpG6yfIToZBpHOjtQHRo2BhXGDoE70EVs6kBtrRg="
   },
   {
     "pname": "Microsoft.IdentityModel.Protocols.OpenIdConnect",
-    "version": "6.10.0",
-    "hash": "sha256-o9bG81VpdFMMMR+as39wdnI6vFau+xwBk2Vv7nFpyaI="
+    "version": "8.0.1",
+    "hash": "sha256-ZHKaZxqESk+OU1SFTFGxvZ71zbdgWqv1L6ET9+fdXX0="
   },
   {
     "pname": "Microsoft.IdentityModel.Tokens",
-    "version": "6.10.0",
-    "hash": "sha256-Hs4D6DuYCgxpsGt3kPWSQn8fvzL068np6fz9Lq0uj+I="
+    "version": "8.0.1",
+    "hash": "sha256-beVbbVQy874HlXkTKarPTT5/r7XR1NGHA/50ywWp7YA="
+  },
+  {
+    "pname": "Microsoft.IdentityModel.Tokens",
+    "version": "8.17.0",
+    "hash": "sha256-XcA0KXJbqMWt0I5LuHHMRLpgVQ18KcBej1BoySHeA1A="
   },
   {
     "pname": "Microsoft.IO.RecyclableMemoryStream",
@@ -166,8 +176,13 @@
   },
   {
     "pname": "System.IdentityModel.Tokens.Jwt",
-    "version": "6.10.0",
-    "hash": "sha256-NLJnOpVUQTDAfrk3jLcwwQS9TU+VFFUGa0b2lURmYwI="
+    "version": "8.0.1",
+    "hash": "sha256-hW4f9zWs0afxPbcMqCA/FAGvBZbBFSkugIOurswomHg="
+  },
+  {
+    "pname": "System.IdentityModel.Tokens.Jwt",
+    "version": "8.17.0",
+    "hash": "sha256-DmAmWVosgwWlKGJm/0wFVbeV19YD2rT+gp8utjY0n0Q="
   },
   {
     "pname": "System.Memory.Data",

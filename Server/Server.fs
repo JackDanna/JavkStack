@@ -7,6 +7,8 @@ open Fable.Remoting.Giraffe
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.DataProtection
 open Microsoft.AspNetCore.Builder
+open Microsoft.AspNetCore.Authentication.JwtBearer
+open Microsoft.IdentityModel.Tokens
 open System
 open System.IO
 
@@ -29,6 +31,25 @@ let configureDataProtection (services: IServiceCollection) =
 
     dataProtectionBuilder.PersistKeysToFileSystem(DirectoryInfo(keysPath)) |> ignore
     dataProtectionBuilder.SetDefaultKeyLifetime(TimeSpan.FromDays 90) |> ignore
+    services
+
+let configureJwtAuth (services: IServiceCollection) =
+    services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(fun options ->
+            options.TokenValidationParameters <-
+                TokenValidationParameters(
+                    ValidateIssuer = true,
+                    ValidIssuer = issuerString,
+                    ValidateAudience = true,
+                    ValidAudience = audienceString,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = SymmetricSecurityKey(Text.Encoding.UTF8.GetBytes Environment.SideEffect.environment.JWT_SECRET),
+                    ValidateLifetime = true
+                ))
+    |> ignore
+
+    services.AddAuthorization() |> ignore
     services
 
 let configureStaticFileOptions (services: IServiceCollection) =
@@ -75,10 +96,11 @@ let webApp =
         |> Remoting.fromContext unauthenticatedApiImplementation
         |> Remoting.buildHttpHandler
 
-        Remoting.createApi ()
-        |> Remoting.withRouteBuilder Api.Shared.routingBuilder
-        |> Remoting.fromContext apiImplementation
-        |> Remoting.buildHttpHandler
+        requiresAuthentication (RequestErrors.UNAUTHORIZED "Bearer" "JavkStack" "Login required")
+        >=> (Remoting.createApi ()
+             |> Remoting.withRouteBuilder Api.Shared.routingBuilder
+             |> Remoting.fromContext apiImplementation
+             |> Remoting.buildHttpHandler)
     ]
 
 let app = application {
@@ -88,6 +110,8 @@ let app = application {
     use_gzip
     service_config configureDataProtection
     service_config configureStaticFileOptions
+    service_config configureJwtAuth
+    app_config _.UseAuthentication().UseAuthorization()
 }
 
 [<EntryPoint>]

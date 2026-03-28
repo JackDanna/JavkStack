@@ -1,10 +1,34 @@
 module Api.SideEffect
 
 open System
+open System.Security.Claims
+open System.IdentityModel.Tokens.Jwt
+open Microsoft.IdentityModel.Tokens
 open Api.Shared
 open LoginPage.Shared
 open User.Shared
 open CosmosDB.SideEffect
+open Environment.SideEffect
+
+// ---------------------------------------------------------------------------
+// JWT generation
+// ---------------------------------------------------------------------------
+
+let issuerString = "JavkStack"
+let audienceString = "JavkStack"
+
+let generateAccessToken (user: User) =
+    JwtSecurityToken(
+        issuer = issuerString,
+        audience = audienceString,
+        claims = [|
+            Claim(JwtRegisteredClaimNames.Sub, user.id)
+            Claim(JwtRegisteredClaimNames.UniqueName, user.username)
+        |],
+        expires = DateTime.UtcNow.AddHours 1.0,
+        signingCredentials = SigningCredentials(SymmetricSecurityKey(Text.Encoding.UTF8.GetBytes environment.JWT_SECRET), SecurityAlgorithms.HmacSha256)
+    )
+    |> JwtSecurityTokenHandler().WriteToken
 
 // ---------------------------------------------------------------------------
 // Password hashing (PBKDF2 / SHA-256)
@@ -63,7 +87,7 @@ let unauthenticatedApiImplementation ctx : UnauthenticatedApi = {
                     if verifyPassword login.Password user.passwordHash then
                         return
                             Ok {
-                                Token = Guid.NewGuid().ToString()
+                                Token = generateAccessToken user
                                 RefreshToken = Guid.NewGuid().ToString()
                                 Id = user.id
                             }
