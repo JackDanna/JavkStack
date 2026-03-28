@@ -8,8 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "build": "fable ./src -o ./out",
-    "watch": "fable watch ./src -o ./out"
+    "build": "fable ./App.fsproj -o ./out",
+    "watch": "fable watch ./App.fsproj -o ./out"
   },
   "dependencies": {
     "@react-native-community/netinfo": "^12.0.1",

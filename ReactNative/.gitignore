@@ -65,8 +65,8 @@ yarn-error.log
 
 # Fable / F#
 out/
-src/obj/
-src/bin/
+obj/
+bin/
 *.fable-temp.csproj
 
 # testing
