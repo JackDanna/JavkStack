@@ -2,6 +2,7 @@ module Api.SideEffect
 
 open Api.Shared
 open LoginPage.SideEffect
+open RegisterPage.SideEffect
 
 // ---------------------------------------------------------------------------
 // API implementations

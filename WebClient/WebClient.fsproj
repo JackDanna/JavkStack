@@ -8,6 +8,7 @@
     <None Include="tailwind.config.js" />
     <None Include="index.html" />
     <Compile Include="LoginPage.fs" />
+    <Compile Include="RegisterPage.fs" />
     <Compile Include="Index.fs" />
     <Compile Include="App.fs" />
     <None Include="vite.config.mts" />

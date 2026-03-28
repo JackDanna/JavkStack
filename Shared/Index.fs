@@ -1,6 +1,7 @@
 ﻿module Index.Shared
 
 open LoginPage.Shared
+open RegisterPage.Shared
 open Elmish
 
 // ---------- URL ---------------------------------------------------------
@@ -8,12 +9,16 @@ open Elmish
 type Url =
     | IndexUrl
     | LoginPageUrl
+    | RegisterPageUrl
     | NotFoundUrl
     | HomeUrl
     | RulesUrl
 
 [<Literal>]
 let LOGIN = "login"
+
+[<Literal>]
+let REGISTER = "register"
 
 [<Literal>]
 let NOT_FOUND = "not-found"
@@ -28,6 +33,7 @@ let parseUrl segments =
     match segments with
     | [] -> HomeUrl
     | [ LOGIN ] -> LoginPageUrl
+    | [ REGISTER ] -> RegisterPageUrl
     | [ HOME ] -> HomeUrl
     | [ RULES ] -> RulesUrl
     | _ -> NotFoundUrl
@@ -36,13 +42,16 @@ let urlToSegments url =
     match url with
     | IndexUrl -> [||]
     | LoginPageUrl -> [| LOGIN |]
+    | RegisterPageUrl -> [| REGISTER |]
     | NotFoundUrl -> [| NOT_FOUND |]
     | HomeUrl -> [| HOME |]
     | RulesUrl -> [| RULES |]
 
 // ---------- Page model --------------------------------------------------
 
-type UnauthenticatedPage = LoginPage of LoginPage
+type UnauthenticatedPage =
+    | LoginPage of LoginPage
+    | RegisterPage of RegisterPage
 
 type UnauthenticatedOrAuthenticated =
     | Unauthenticated of UnauthenticatedPage
@@ -57,6 +66,7 @@ type Index = {
 
 type Msg =
     | LoginPageMsg of LoginPage.Shared.Msg
+    | RegisterPageMsg of RegisterPage.Shared.Msg
     | LoadStoredToken
     | StoredTokenLoaded of Result<AuthenticatedSession, string>
     | LogoutRequested
@@ -67,14 +77,23 @@ type Msg =
 // ---------- Init --------------------------------------------------------
 
 let init loadToken (currentUrlSegments: string list) =
-    let loginModel, loginCmd = LoginPage.Shared.init ()
+    let url = parseUrl currentUrlSegments
+
+    let initialPage, pageCmd =
+        match url with
+        | RegisterPageUrl ->
+            let regModel, regCmd = RegisterPage.Shared.init ()
+            regModel |> RegisterPage |> Unauthenticated, Cmd.map RegisterPageMsg regCmd
+        | _ ->
+            let loginModel, loginCmd = LoginPage.Shared.init ()
+            loginModel |> LoginPage |> Unauthenticated, Cmd.map LoginPageMsg loginCmd
 
     {
-        Url = parseUrl currentUrlSegments
-        UnauthenticatedOrAuthenticated = loginModel |> LoginPage |> Unauthenticated
+        Url = url
+        UnauthenticatedOrAuthenticated = initialPage
     },
     Cmd.batch [
-        Cmd.map LoginPageMsg loginCmd
+        pageCmd
         Cmd.OfAsync.perform loadToken () StoredTokenLoaded
     ]
 
@@ -104,13 +123,39 @@ let update
 
         | LoginPageMsg loginMsg, LoginPage loginModel ->
             let updatedModel, cmd =
-                LoginPage.Shared.update unauthenticatedApi.login unauthenticatedApi.register loginMsg loginModel
+                LoginPage.Shared.update unauthenticatedApi.login loginMsg loginModel
 
             {
                 model with
                     UnauthenticatedOrAuthenticated = updatedModel |> LoginPage |> Unauthenticated
             },
             Cmd.map LoginPageMsg cmd
+
+        | RegisterPageMsg registerMsg, RegisterPage registerModel ->
+            let updatedModel, cmd =
+                RegisterPage.Shared.update unauthenticatedApi.register registerMsg registerModel
+
+            {
+                model with
+                    UnauthenticatedOrAuthenticated = updatedModel |> RegisterPage |> Unauthenticated
+            },
+            Cmd.map RegisterPageMsg cmd
+
+        | UrlChanged url, _ ->
+            let updatedModel = { model with Url = url }
+
+            match url with
+            | LoginPageUrl ->
+                let loginModel, loginCmd = LoginPage.Shared.init ()
+
+                { updatedModel with UnauthenticatedOrAuthenticated = loginModel |> LoginPage |> Unauthenticated },
+                Cmd.map LoginPageMsg loginCmd
+            | RegisterPageUrl ->
+                let regModel, regCmd = RegisterPage.Shared.init ()
+
+                { updatedModel with UnauthenticatedOrAuthenticated = regModel |> RegisterPage |> Unauthenticated },
+                Cmd.map RegisterPageMsg regCmd
+            | _ -> updatedModel, Cmd.none
 
         | _ -> model, Cmd.none
 

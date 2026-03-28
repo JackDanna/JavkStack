@@ -5,7 +5,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Environment.fs" />
+    <Compile Include="Deferred.fs" />
     <Compile Include="LoginPage.fs" />
+    <Compile Include="RegisterPage.fs" />
     <Compile Include="User.fs" />
     <Compile Include="Api.fs" />
     <Compile Include="Index.fs" />

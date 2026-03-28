@@ -1,6 +1,7 @@
 module Api.Shared
 
 open LoginPage.Shared
+open RegisterPage.Shared
 
 let routingBuilder = sprintf "/api/%s/%s"
 

@@ -22,6 +22,8 @@ let view (model: Index) dispatch =
         match unauthenticatedPage with
         | LoginPage loginModel ->
             LoginPage.WebClient.view loginModel (fun msg -> dispatch (LoginPageMsg msg))
+        | RegisterPage registerModel ->
+            RegisterPage.WebClient.view registerModel (fun msg -> dispatch (RegisterPageMsg msg))
 
     | Authenticated _session ->
         Html.div [
