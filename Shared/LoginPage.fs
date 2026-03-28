@@ -112,3 +112,6 @@ let update authenticate register msg model =
 
     | RegisterResponse(Error e) ->
         { model with RegisterAttempt = RegisterResolved(Error e) }, Cmd.none
+
+let issuerString = "JavkStack"
+let audienceString = "JavkStack"

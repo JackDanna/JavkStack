@@ -12,6 +12,7 @@ open Microsoft.IdentityModel.Tokens
 open System
 open System.IO
 
+open LoginPage.Shared
 open Api.SideEffect
 
 let configureDataProtection (services: IServiceCollection) =

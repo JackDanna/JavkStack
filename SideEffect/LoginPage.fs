@@ -14,9 +14,6 @@ open Environment.SideEffect
 // JWT generation
 // ---------------------------------------------------------------------------
 
-let issuerString = "JavkStack"
-let audienceString = "JavkStack"
-
 let generateAccessToken (user: User) =
     JwtSecurityToken(
         issuer = issuerString,
