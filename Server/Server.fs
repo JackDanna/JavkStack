@@ -100,7 +100,7 @@ let webApp =
     choose [
         createApiHandler unauthenticatedApiImplementation
         requiresAuthentication (RequestErrors.UNAUTHORIZED "Bearer" "JavkStack" "Login required")
-        >=> createApiHandler apiImplementation
+        >=> createApiHandler authenticatedApiImplementation
     ]
 
 let app = application {
