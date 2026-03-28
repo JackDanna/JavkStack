@@ -4,4 +4,5 @@
   <Project Path="Shared/Shared.fsproj" />
   <Project Path="SideEffect/SideEffect.fsproj" />
   <Project Path="WebClient/WebClient.fsproj" />
+  <Project Path="ReactNative/src/App.fsproj" />
 </Solution>
