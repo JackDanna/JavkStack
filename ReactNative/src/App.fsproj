@@ -7,10 +7,10 @@
     <Compile Include="App.fs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Fable.Core" Version="4.*" />
-    <PackageReference Include="Fable.Elmish" Version="4.*" />
-    <PackageReference Include="Fable.Elmish.React" Version="4.*" />
-    <PackageReference Include="Fable.React" Version="9.*" />
+    <PackageReference Include="Fable.Core" Version="4.5.0" />
+    <PackageReference Include="Fable.Elmish" Version="4.4.0" />
+    <PackageReference Include="Fable.Elmish.React" Version="4.0.0" />
+    <PackageReference Include="Fable.React" Version="9.4.0" />
     <PackageReference Include="Fable.React.Native" Version="4.0.0" />
   </ItemGroup>
 </Project>
