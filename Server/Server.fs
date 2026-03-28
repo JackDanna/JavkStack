@@ -1,15 +1,18 @@
 module Server
 
+open Saturn
+open Giraffe
 open Fable.Remoting.Server
-open Fable.Remoting.AspNetCore
+open Fable.Remoting.Giraffe
 open Microsoft.Extensions.DependencyInjection
 open Microsoft.AspNetCore.DataProtection
 open Microsoft.AspNetCore.Builder
-open Microsoft.AspNetCore.StaticFiles
-open Microsoft.Extensions.FileProviders
+open Microsoft.AspNetCore.Authentication.JwtBearer
+open Microsoft.IdentityModel.Tokens
 open System
 open System.IO
 
+open LoginPage.Shared
 open Api.SideEffect
 
 let configureDataProtection (services: IServiceCollection) =
@@ -29,6 +32,25 @@ let configureDataProtection (services: IServiceCollection) =
 
     dataProtectionBuilder.PersistKeysToFileSystem(DirectoryInfo(keysPath)) |> ignore
     dataProtectionBuilder.SetDefaultKeyLifetime(TimeSpan.FromDays 90) |> ignore
+    services
+
+let configureJwtAuth (services: IServiceCollection) =
+    services
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(fun options ->
+            options.TokenValidationParameters <-
+                TokenValidationParameters(
+                    ValidateIssuer = true,
+                    ValidIssuer = issuerString,
+                    ValidateAudience = true,
+                    ValidAudience = audienceString,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = SymmetricSecurityKey(Text.Encoding.UTF8.GetBytes Environment.SideEffect.environment.JWT_SECRET),
+                    ValidateLifetime = true
+                ))
+    |> ignore
+
+    services.AddAuthorization() |> ignore
     services
 
 let configureStaticFileOptions (services: IServiceCollection) =
@@ -68,32 +90,31 @@ let configureStaticFileOptions (services: IServiceCollection) =
 
     services
 
-[<EntryPoint>]
-let main args =
-    let builder = WebApplication.CreateBuilder args
-    configureDataProtection builder.Services |> ignore
-    configureStaticFileOptions builder.Services |> ignore
-    builder.Services.AddMemoryCache() |> ignore
-    builder.Services.AddResponseCompression() |> ignore
-
-    let app = builder.Build()
-    app.UseResponseCompression() |> ignore
-
+let createApiHandler apiImplementation =
     Remoting.createApi ()
     |> Remoting.withRouteBuilder Api.Shared.routingBuilder
     |> Remoting.fromContext apiImplementation
-    |> app.UseRemoting
+    |> Remoting.buildHttpHandler
 
-    let publicPath = Path.Combine(Directory.GetCurrentDirectory(), "public")
-    let fileProvider = new PhysicalFileProvider(publicPath)
+let webApp =
+    choose [
+        createApiHandler unauthenticatedApiImplementation
+        requiresAuthentication (RequestErrors.UNAUTHORIZED "Bearer" "JavkStack" "Login required")
+        >=> createApiHandler authenticatedApiImplementation
+    ]
 
-    DefaultFilesOptions(FileProvider = fileProvider)
-    |> app.UseDefaultFiles
-    |> ignore
+let app = application {
+    use_router webApp
+    memory_cache
+    use_static "public"
+    use_gzip
+    service_config configureDataProtection
+    service_config configureStaticFileOptions
+    service_config configureJwtAuth
+    app_config _.UseAuthentication().UseAuthorization()
+}
 
-    StaticFileOptions(FileProvider = fileProvider)
-    |> app.UseStaticFiles
-    |> ignore
-
-    app.Run()
+[<EntryPoint>]
+let main _ =
+    run app
     0

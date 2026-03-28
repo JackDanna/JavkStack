@@ -89,16 +89,26 @@ let
 
       exportEnv = ''
         REPO=$(${pkgs.lib.getExe pkgs.git} rev-parse --show-toplevel)
-        cd "$REPO/CloudInfrastructure"
+        cd "$REPO/Infrastructure"
         if [ -z "$PULUMI_CONFIG_PASSPHRASE" ]; then
           read -rsp "Pulumi passphrase: " PULUMI_CONFIG_PASSPHRASE
           export PULUMI_CONFIG_PASSPHRASE
           echo ""
         fi
         echo "Exporting Pulumi stack outputs to .env.prod..."
-        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --shell --show-secrets \
-          > "$REPO/CloudInfrastructure/.env.prod"
-        echo "Written to CloudInfrastructure/.env.prod"
+        ${pkgs.lib.getExe' pkgs.pulumi-bin "pulumi"} stack output --json --show-secrets \
+          | ${pkgs.lib.getExe pkgs.jq} -r 'to_entries[] | "\(.key)=\(.value)"' \
+          > "$REPO/Infrastructure/.env.prod"
+      '';
+
+      runFrontendDebugProd = ''
+        cd $(${self.repoDir})/WebClient/
+        ${pkgs.lib.getExe pkgs.fable} watch -o output -s --run npx vite --mode prod
+      '';
+
+      restoreClientDependencies = ''
+        cd $(${self.repoDir})/WebClient/
+        npm install
       '';
     }
   );

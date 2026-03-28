@@ -7,6 +7,8 @@
   <ItemGroup>
     <None Include="tailwind.config.js" />
     <None Include="index.html" />
+    <Compile Include="LoginPage.fs" />
+    <Compile Include="RegisterPage.fs" />
     <Compile Include="Index.fs" />
     <Compile Include="App.fs" />
     <None Include="vite.config.mts" />
@@ -30,6 +32,7 @@
     <PackageReference Include="Fable.Browser.XMLHttpRequest" Version="1.4.0" />
     <!-- Communication -->
     <PackageReference Include="Fable.Remoting.Client" Version="7.35.0" />
+    <PackageReference Include="Fable.SimpleJson" Version="3.24.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Shared\Shared.fsproj" />
