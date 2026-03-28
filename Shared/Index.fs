@@ -9,6 +9,8 @@ type Url =
     | IndexUrl
     | LoginPageUrl
     | NotFoundUrl
+    | HomeUrl
+    | RulesUrl
 
 [<Literal>]
 let LOGIN = "login"
@@ -16,10 +18,18 @@ let LOGIN = "login"
 [<Literal>]
 let NOT_FOUND = "not-found"
 
+[<Literal>]
+let HOME = "home"
+
+[<Literal>]
+let RULES = "rules"
+
 let parseUrl segments =
     match segments with
-    | [] -> IndexUrl
+    | [] -> HomeUrl
     | [ LOGIN ] -> LoginPageUrl
+    | [ HOME ] -> HomeUrl
+    | [ RULES ] -> RulesUrl
     | _ -> NotFoundUrl
 
 let urlToSegments url =
@@ -27,6 +37,8 @@ let urlToSegments url =
     | IndexUrl -> [||]
     | LoginPageUrl -> [| LOGIN |]
     | NotFoundUrl -> [| NOT_FOUND |]
+    | HomeUrl -> [| HOME |]
+    | RulesUrl -> [| RULES |]
 
 // ---------- Page model --------------------------------------------------
 
