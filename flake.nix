@@ -24,8 +24,8 @@
         commands = import ./commands.nix { inherit pkgs; };
         
         androidComposition = pkgs.androidenv.composeAndroidPackages {
-          cmdLineToolsVersion = "13.0";
-          platformVersions = [ "35" ];
+          cmdLineToolsVersion = "19.0";
+          platformVersions = [ "36" ];
           buildToolsVersions = [ "35.0.0" ];
           includeEmulator = true;
           includeSystemImages = true;
