@@ -113,4 +113,4 @@ let unauthenticatedApiImplementation ctx : UnauthenticatedApi = {
 }
 
 let apiImplementation ctx : Api =
-    { sayBanana = fun () -> async { return "Banana!" } }
+    { sayBanana = fun () -> async.Return "Banana!" }
