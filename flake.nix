@@ -45,7 +45,8 @@
       
             export ANDROID_HOME=${androidComposition.androidsdk}/libexec/android-sdk
             export ANDROID_SDK_ROOT=$ANDROID_HOME
-            export LD_LIBRARY_PATH=/run/opengl-driver/lib:${pkgs.libGL}/lib:${pkgs.libGLU}/lib:${pkgs.gtk3}/lib:$LD_LIBRARY_PATH
+            export ANDROID_NDK_HOME=$ANDROID_HOME/ndk-bundle
+            export LD_LIBRARY_PATH=${pkgs.gtk3}/lib:$LD_LIBRARY_PATH
           '';
           buildInputs = with pkgs; [
             commands
@@ -60,8 +61,6 @@
 
             jdk17
             androidComposition.androidsdk
-            libGL
-            libGLU
             gtk3
           ];
         };

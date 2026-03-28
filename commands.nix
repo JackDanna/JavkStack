@@ -110,6 +110,21 @@ let
         cd $(${self.repoDir})/WebClient/
         npm install
       '';
+
+      emulator = ''
+        AVD="''${1:-Pixel9}"
+        GPU="''${2:-nvidia}"
+
+        if [ "$GPU" = "intel" ]; then
+          export VK_ICD_FILENAMES=${pkgs.mesa.drivers}/share/vulkan/icd.d/intel_icd.x86_64.json
+          export LD_LIBRARY_PATH=${pkgs.vulkan-loader}/lib:${pkgs.libGL}/lib:${pkgs.libGLU}/lib:${pkgs.gtk3}/lib:$LD_LIBRARY_PATH
+          exec emulator -avd "$AVD" -no-snapshot-load -no-metrics -gpu host -cores 4 -memory 4096
+        else
+          export VK_ICD_FILENAMES=/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json
+          export LD_LIBRARY_PATH=/run/opengl-driver/lib:${pkgs.vulkan-loader}/lib:${pkgs.libGL}/lib:${pkgs.libGLU}/lib:${pkgs.gtk3}/lib:$LD_LIBRARY_PATH
+          exec nvidia-offload emulator -avd "$AVD" -no-snapshot-load -no-metrics -gpu host -cores 4 -memory 4096
+        fi
+      '';
     }
   );
 in
