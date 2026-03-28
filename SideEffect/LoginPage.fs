@@ -4,7 +4,6 @@ open System
 open System.Security.Claims
 open System.IdentityModel.Tokens.Jwt
 open Microsoft.IdentityModel.Tokens
-open Api.Shared
 open LoginPage.Shared
 open User.Shared
 open CosmosDB.SideEffect
